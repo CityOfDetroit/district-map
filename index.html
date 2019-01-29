@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Interactive District Map | City of Detroit</title>
+  <meta name="description" content="City of Detroit interactive city council district map.">
+  <meta name="author" content="Edgar Montes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <!--build:css css/styles.min.css-->
+  <link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
+  <link href="./node_modules/mapbox-gl/dist/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css" type="text/css" />
+  <link href="sass/styles.scss" rel="stylesheet" />
+  <!--endbuild-->
+</head>
+<body>
+  <section id="alert-overlay" class="">
+    <article>
+      <span class="close">x</span>
+      <div></div>
+    </article>
+  </section>
+  <section id="drill-down-overlay" class="">
+    <article>
+      <span class="close">x</span>
+      <div></div>
+    </article>
+  </section>
+  <main class="">
+    <section class="data-panel">
+      <button id="close-panel-btn">x</button>
+      <section class="content-section"></section>
+    </section>
+    <section class="map-panel">
+      <article id="map"></article>
+      <article id="geocoder"></article>
+    </section>
+  </main>
+  <script type="module" src="index.js"></script>
+</body>
+</html>
