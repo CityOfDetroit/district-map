@@ -12,22 +12,47 @@ import Controller from './components/controller.class';
       console.log(features[0]);
       this.setFilter('council-hover', ['==', 'districts', features[0].properties.districts]);
     }else{
-
+      features = this.queryRenderedFeatures(e.point, {
+        layers: ['neighborhood-fill']
+      });
+      if (features.length) {
+        console.log(features[0]);
+        this.setFilter('neighborhood-hover', ['==', 'OBJECTID', features[0].properties.OBJECTID]);
+      }
     }
     this.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
   });
   controller.map.map.on('mouseleave', 'council-fill', function () {
     this.setFilter('council-hover', ['==', 'districts', '']);
   });
+  controller.map.map.on('mouseleave', 'neighborhood-fill', function () {
+    this.setFilter('neighborhood-hover', ['==', 'OBJECTID', '']);
+  });
   controller.map.map.on('click', function (e, parent = this) {
-    const features = this.queryRenderedFeatures(e.point, {
+    let features = this.queryRenderedFeatures(e.point, {
       layers: ['council-fill']
     });
-    // console.log(e.point);
+    console.log(e);
     if (features.length) {
+      controller.map.map.flyTo({
+        center: [e.lngLat.lng, e.lngLat.lat],
+        zoom: 13,
+        speed: .5,
+        curve: 1,
+        easing(t) {
+          return t;
+        }
+      });
       controller.updatePanel(features[0], controller);
     } else {
-
+      features = this.queryRenderedFeatures(e.point, {
+        layers: ['neighborhood-fill']
+      });
+      if (features.length) {
+        controller.updatePanel(features[0], controller);
+      } else {
+      
+      }
     }
     document.querySelector('.data-panel').className = 'data-panel active';
   });

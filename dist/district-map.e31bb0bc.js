@@ -35689,6 +35689,51 @@ class Controller {
           'text-color': '#004544'
         }
       }, {
+        "id": "neighborhood-fill",
+        "type": "fill",
+        "source": "neighborhood",
+        "layout": {},
+        "minzoom": 12,
+        "paint": {
+          "fill-color": '#9FD5B3',
+          "fill-opacity": 1
+        }
+      }, {
+        "id": "neighborhood-borders",
+        "type": "line",
+        "source": "neighborhood",
+        "layout": {},
+        "minzoom": 12,
+        "paint": {
+          "line-color": "#004544",
+          "line-width": 3
+        }
+      }, {
+        "id": "neighborhood-hover",
+        "type": "fill",
+        "source": "neighborhood",
+        "layout": {},
+        "minzoom": 12,
+        "paint": {
+          "fill-color": '#004544',
+          "fill-opacity": .5
+        },
+        "filter": ["==", "OBJECTID", ""]
+      }, {
+        'id': 'neighborhood-labels',
+        'type': 'symbol',
+        'source': 'neighborhood-labels',
+        "minzoom": 12,
+        'layout': {
+          "text-font": ["Mark SC Offc Pro Bold"],
+          "text-field": "{name}",
+          "symbol-placement": "point",
+          "text-size": 22
+        },
+        'paint': {
+          'text-color': '#004544'
+        }
+      }, {
         "id": "historic-fill",
         "type": "fill",
         "source": "historic",
@@ -35696,7 +35741,7 @@ class Controller {
         "layout": {},
         "paint": {
           "fill-color": "#d11141",
-          "fill-opacity": .5
+          "fill-opacity": 1
         }
       }, {
         id: "point",
@@ -35782,21 +35827,53 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     if (features.length) {
       console.log(features[0]);
       this.setFilter('council-hover', ['==', 'districts', features[0].properties.districts]);
-    } else {}
+    } else {
+      features = this.queryRenderedFeatures(e.point, {
+        layers: ['neighborhood-fill']
+      });
+
+      if (features.length) {
+        console.log(features[0]);
+        this.setFilter('neighborhood-hover', ['==', 'OBJECTID', features[0].properties.OBJECTID]);
+      }
+    }
 
     this.getCanvas().style.cursor = features.length ? 'pointer' : '';
   });
   controller.map.map.on('mouseleave', 'council-fill', function () {
     this.setFilter('council-hover', ['==', 'districts', '']);
   });
+  controller.map.map.on('mouseleave', 'neighborhood-fill', function () {
+    this.setFilter('neighborhood-hover', ['==', 'OBJECTID', '']);
+  });
   controller.map.map.on('click', function (e, parent = this) {
-    const features = this.queryRenderedFeatures(e.point, {
+    let features = this.queryRenderedFeatures(e.point, {
       layers: ['council-fill']
-    }); // console.log(e.point);
+    });
+    console.log(e);
 
     if (features.length) {
+      controller.map.map.flyTo({
+        center: [e.lngLat.lng, e.lngLat.lat],
+        zoom: 13,
+        speed: .5,
+        curve: 1,
+
+        easing(t) {
+          return t;
+        }
+
+      });
       controller.updatePanel(features[0], controller);
-    } else {}
+    } else {
+      features = this.queryRenderedFeatures(e.point, {
+        layers: ['neighborhood-fill']
+      });
+
+      if (features.length) {
+        controller.updatePanel(features[0], controller);
+      } else {}
+    }
 
     document.querySelector('.data-panel').className = 'data-panel active';
   });
@@ -35842,7 +35919,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62068" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49793" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

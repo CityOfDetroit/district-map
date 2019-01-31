@@ -110,6 +110,55 @@ export default class Controller {
           }
         },
         {
+          "id": "neighborhood-fill",
+          "type": "fill",
+          "source": "neighborhood",
+          "layout": {},
+          "minzoom": 12,
+          "paint": {
+            "fill-color": '#9FD5B3',
+            "fill-opacity": 1
+          }
+        },
+        {
+          "id": "neighborhood-borders",
+          "type": "line",
+          "source": "neighborhood",
+          "layout": {},
+          "minzoom": 12,
+          "paint": {
+            "line-color": "#004544",
+            "line-width": 3
+          }
+        },
+        {
+          "id": "neighborhood-hover",
+          "type": "fill",
+          "source": "neighborhood",
+          "layout": {},
+          "minzoom": 12,
+          "paint": {
+            "fill-color": '#004544',
+            "fill-opacity": .5
+          },
+          "filter": ["==", "OBJECTID", ""]
+        },
+        {
+          'id': 'neighborhood-labels',
+          'type': 'symbol',
+          'source': 'neighborhood-labels', 
+          "minzoom": 12,
+          'layout': {
+            "text-font": ["Mark SC Offc Pro Bold"],
+            "text-field": "{name}",
+            "symbol-placement": "point",
+            "text-size": 22
+          },
+          'paint': {
+            'text-color': '#004544'
+          }
+        },
+        {
           "id": "historic-fill",
           "type": "fill",
           "source": "historic",
@@ -117,7 +166,7 @@ export default class Controller {
           "layout": {},
           "paint": {
             "fill-color": "#d11141",
-            "fill-opacity": .5
+            "fill-opacity": 1
           }
         },
         {
