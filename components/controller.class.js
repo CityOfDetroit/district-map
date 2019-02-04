@@ -46,6 +46,16 @@ export default class Controller {
           data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/theNeighborhoods/FeatureServer/6/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=geojson'
         },
         {
+          id: "schools",
+          type: "geojson",
+          data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/theNeighborhoods/FeatureServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=geojson'
+        },
+        {
+          id: "libraries",
+          type: "geojson",
+          data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/theNeighborhoods/FeatureServer/1/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=geojson'
+        },
+        {
           id: "historic",
           type: "geojson",
           data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Detroit_Local_Historic_Districts/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=geojson&token='
@@ -68,7 +78,7 @@ export default class Controller {
           "maxzoom": 12,
           "paint": {
             "fill-color": '#9FD5B3',
-            "fill-opacity": 1
+            "fill-opacity": 0
           }
         },
         {
@@ -95,6 +105,18 @@ export default class Controller {
           "filter": ["==", "OBJECTID", ""]
         },
         {
+          "id": "council-featured",
+          "type": "fill",
+          "source": "council",
+          "layout": {},
+          "maxzoom": 12,
+          "paint": {
+            "fill-color": '#004544',
+            "fill-opacity": .5
+          },
+          "filter": ["==", "OBJECTID", ""]
+        },
+        {
           'id': 'council-labels',
           'type': 'symbol',
           'source': 'council-labels', 
@@ -110,6 +132,17 @@ export default class Controller {
           }
         },
         {
+          "id": "historic",
+          "type": "fill",
+          "source": "historic",
+          "minzoom": 12,
+          "layout": {},
+          "paint": {
+            "fill-color": "#d11141",
+            "fill-opacity": .6
+          }
+        },
+        {
           "id": "neighborhood-fill",
           "type": "fill",
           "source": "neighborhood",
@@ -117,7 +150,7 @@ export default class Controller {
           "minzoom": 12,
           "paint": {
             "fill-color": '#9FD5B3',
-            "fill-opacity": 1
+            "fill-opacity": 0
           }
         },
         {
@@ -159,23 +192,34 @@ export default class Controller {
           }
         },
         {
-          "id": "historic-fill",
-          "type": "fill",
-          "source": "historic",
-          "minzoom": 12,
+          'id': 'parks',
+          'type': 'fill',
+          'source': 'parks',
+          'minzoom': 12,
           "layout": {},
           "paint": {
-            "fill-color": "#d11141",
+            "fill-color": "#00b159",
             "fill-opacity": 1
           }
         },
         {
-          id: "point",
-          "source": "single-point",
+          "id": "schools",
+          "source": "schools",
           "type": "circle",
+          "minzoom": 12,
           "paint": {
-              "circle-radius": 10,
-              "circle-color": "#007cbf"
+              "circle-radius": 8,
+              "circle-color": "#00aedb"
+          }
+        },
+        {
+          "id": "libraries",
+          "source": "libraries",
+          "type": "circle",
+          "minzoom": 12,
+          "paint": {
+              "circle-radius": 8,
+              "circle-color": "#eb6841"
           }
         }
       ]
@@ -205,7 +249,7 @@ export default class Controller {
     controller.map.map.getSource('single-point').setData(ev.result.geometry);
     controller.map.map.flyTo({
       center: ev.result.center,
-      zoom: 13,
+      zoom: 15,
       speed: 1,
       curve: 1,
       easing(t) {

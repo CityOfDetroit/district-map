@@ -1,7 +1,7 @@
 import Controller from './components/controller.class';
 
 (function start() {
-  
+  const person = require('./img/man.png');
   const controller = new Controller(document.querySelector('.content-section'));
 
   controller.map.map.on('mousemove', function (e, parent = this) {
@@ -13,11 +13,17 @@ import Controller from './components/controller.class';
       this.setFilter('council-hover', ['==', 'districts', features[0].properties.districts]);
     }else{
       features = this.queryRenderedFeatures(e.point, {
-        layers: ['neighborhood-fill']
+        layers: ['schools']
       });
-      if (features.length) {
-        console.log(features[0]);
-        this.setFilter('neighborhood-hover', ['==', 'OBJECTID', features[0].properties.OBJECTID]);
+      if(!features.length){
+        features = this.queryRenderedFeatures(e.point, {
+          layers: ['libraries']
+        });
+        if(!features.length){
+          features = this.queryRenderedFeatures(e.point, {
+            layers: ['parks']
+          });
+        }
       }
     }
     this.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
@@ -34,10 +40,11 @@ import Controller from './components/controller.class';
     });
     console.log(e);
     if (features.length) {
+      this.setFilter('council-featured', ['==', 'districts', '']);
       controller.map.map.flyTo({
         center: [e.lngLat.lng, e.lngLat.lat],
         zoom: 13,
-        speed: .5,
+        speed: .75,
         curve: 1,
         easing(t) {
           return t;
@@ -46,12 +53,21 @@ import Controller from './components/controller.class';
       controller.updatePanel(features[0], controller);
     } else {
       features = this.queryRenderedFeatures(e.point, {
-        layers: ['neighborhood-fill']
+        layers: ['schools']
       });
       if (features.length) {
         controller.updatePanel(features[0], controller);
       } else {
-      
+        features = this.queryRenderedFeatures(e.point, {
+          layers: ['libraries']
+        });
+        if (features.length) {
+          controller.updatePanel(features[0], controller);
+        } else {
+          features = this.queryRenderedFeatures(e.point, {
+            layers: ['parks']
+          });
+        }
       }
     }
     document.querySelector('.data-panel').className = 'data-panel active';
@@ -65,7 +81,19 @@ import Controller from './components/controller.class';
       console.log('extra call');
     }
   });
-
+  controller.map.map.loadImage(person, function(error, image) {
+    if (error) throw error;
+    controller.map.map.addImage('person', image);
+    controller.map.map.addLayer({
+        "id": "point",
+        "type": "symbol",
+        "source": 'single-point',
+        "layout": {
+            "icon-image": "person",
+            "icon-size": .6
+        }
+    });
+  });
   document.getElementById('close-panel-btn').addEventListener('click', function () {
     controller.panel.clearPanel();
     document.querySelector('.data-panel.active').className = 'data-panel';

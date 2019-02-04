@@ -35632,6 +35632,14 @@ class Controller {
         type: "geojson",
         data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/theNeighborhoods/FeatureServer/6/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=5&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=geojson'
       }, {
+        id: "schools",
+        type: "geojson",
+        data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/theNeighborhoods/FeatureServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=geojson'
+      }, {
+        id: "libraries",
+        type: "geojson",
+        data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/theNeighborhoods/FeatureServer/1/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=geojson'
+      }, {
         id: "historic",
         type: "geojson",
         data: 'https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Detroit_Local_Historic_Districts/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=geojson&token='
@@ -35651,7 +35659,7 @@ class Controller {
         "maxzoom": 12,
         "paint": {
           "fill-color": '#9FD5B3',
-          "fill-opacity": 1
+          "fill-opacity": 0
         }
       }, {
         "id": "council-borders",
@@ -35665,6 +35673,17 @@ class Controller {
         }
       }, {
         "id": "council-hover",
+        "type": "fill",
+        "source": "council",
+        "layout": {},
+        "maxzoom": 12,
+        "paint": {
+          "fill-color": '#004544',
+          "fill-opacity": .5
+        },
+        "filter": ["==", "OBJECTID", ""]
+      }, {
+        "id": "council-featured",
         "type": "fill",
         "source": "council",
         "layout": {},
@@ -35689,6 +35708,16 @@ class Controller {
           'text-color': '#004544'
         }
       }, {
+        "id": "historic",
+        "type": "fill",
+        "source": "historic",
+        "minzoom": 12,
+        "layout": {},
+        "paint": {
+          "fill-color": "#d11141",
+          "fill-opacity": .6
+        }
+      }, {
         "id": "neighborhood-fill",
         "type": "fill",
         "source": "neighborhood",
@@ -35696,7 +35725,7 @@ class Controller {
         "minzoom": 12,
         "paint": {
           "fill-color": '#9FD5B3',
-          "fill-opacity": 1
+          "fill-opacity": 0
         }
       }, {
         "id": "neighborhood-borders",
@@ -35734,22 +35763,32 @@ class Controller {
           'text-color': '#004544'
         }
       }, {
-        "id": "historic-fill",
-        "type": "fill",
-        "source": "historic",
-        "minzoom": 12,
+        'id': 'parks',
+        'type': 'fill',
+        'source': 'parks',
+        'minzoom': 12,
         "layout": {},
         "paint": {
-          "fill-color": "#d11141",
+          "fill-color": "#00b159",
           "fill-opacity": 1
         }
       }, {
-        id: "point",
-        "source": "single-point",
+        "id": "schools",
+        "source": "schools",
         "type": "circle",
+        "minzoom": 12,
         "paint": {
-          "circle-radius": 10,
-          "circle-color": "#007cbf"
+          "circle-radius": 8,
+          "circle-color": "#00aedb"
+        }
+      }, {
+        "id": "libraries",
+        "source": "libraries",
+        "type": "circle",
+        "minzoom": 12,
+        "paint": {
+          "circle-radius": 8,
+          "circle-color": "#eb6841"
         }
       }]
     });
@@ -35778,7 +35817,7 @@ class Controller {
     controller.map.map.getSource('single-point').setData(ev.result.geometry);
     controller.map.map.flyTo({
       center: ev.result.center,
-      zoom: 13,
+      zoom: 15,
       speed: 1,
       curve: 1,
 
@@ -35810,7 +35849,9 @@ class Controller {
 }
 
 exports.default = Controller;
-},{"./map.class.js":"components/map.class.js","./panel.class.js":"components/panel.class.js"}],"index.js":[function(require,module,exports) {
+},{"./map.class.js":"components/map.class.js","./panel.class.js":"components/panel.class.js"}],"img/man.png":[function(require,module,exports) {
+module.exports = "/man.3bfc67c3.png";
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _controller = _interopRequireDefault(require("./components/controller.class"));
@@ -35818,6 +35859,8 @@ var _controller = _interopRequireDefault(require("./components/controller.class"
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (function start() {
+  const person = require('./img/man.png');
+
   const controller = new _controller.default(document.querySelector('.content-section'));
   controller.map.map.on('mousemove', function (e, parent = this) {
     let features = this.queryRenderedFeatures(e.point, {
@@ -35829,12 +35872,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       this.setFilter('council-hover', ['==', 'districts', features[0].properties.districts]);
     } else {
       features = this.queryRenderedFeatures(e.point, {
-        layers: ['neighborhood-fill']
+        layers: ['schools']
       });
 
-      if (features.length) {
-        console.log(features[0]);
-        this.setFilter('neighborhood-hover', ['==', 'OBJECTID', features[0].properties.OBJECTID]);
+      if (!features.length) {
+        features = this.queryRenderedFeatures(e.point, {
+          layers: ['libraries']
+        });
+
+        if (!features.length) {
+          features = this.queryRenderedFeatures(e.point, {
+            layers: ['parks']
+          });
+        }
       }
     }
 
@@ -35853,10 +35903,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     console.log(e);
 
     if (features.length) {
+      this.setFilter('council-featured', ['==', 'districts', '']);
       controller.map.map.flyTo({
         center: [e.lngLat.lng, e.lngLat.lat],
         zoom: 13,
-        speed: .5,
+        speed: .75,
         curve: 1,
 
         easing(t) {
@@ -35867,12 +35918,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       controller.updatePanel(features[0], controller);
     } else {
       features = this.queryRenderedFeatures(e.point, {
-        layers: ['neighborhood-fill']
+        layers: ['schools']
       });
 
       if (features.length) {
         controller.updatePanel(features[0], controller);
-      } else {}
+      } else {
+        features = this.queryRenderedFeatures(e.point, {
+          layers: ['libraries']
+        });
+
+        if (features.length) {
+          controller.updatePanel(features[0], controller);
+        } else {
+          features = this.queryRenderedFeatures(e.point, {
+            layers: ['parks']
+          });
+        }
+      }
     }
 
     document.querySelector('.data-panel').className = 'data-panel active';
@@ -35887,12 +35950,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       console.log('extra call');
     }
   });
+  controller.map.map.loadImage(person, function (error, image) {
+    if (error) throw error;
+    controller.map.map.addImage('person', image);
+    controller.map.map.addLayer({
+      "id": "point",
+      "type": "symbol",
+      "source": 'single-point',
+      "layout": {
+        "icon-image": "person",
+        "icon-size": .6
+      }
+    });
+  });
   document.getElementById('close-panel-btn').addEventListener('click', function () {
     controller.panel.clearPanel();
     document.querySelector('.data-panel.active').className = 'data-panel';
   });
 })(window);
-},{"./components/controller.class":"components/controller.class.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./components/controller.class":"components/controller.class.js","./img/man.png":"img/man.png"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35919,7 +35995,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49793" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60002" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
