@@ -299,6 +299,23 @@ img {
   transition: all 0.2s ease-in-out;
 }
 
+.session {
+  margin-bottom: 20px;
+}
+.session .row {
+  height: 20px;
+  width: 100%;
+}
+.session .colors {
+  background: linear-gradient(to right, #CF3234, #00AEDB, #00B159, #E48F22);
+  margin-bottom: 5px;
+}
+.session .label {
+  width: auto;
+  display: inline-block;
+  text-align: center;
+}
+
 #alert-overlay.active {
   position: absolute;
   z-index: 5;
@@ -319,7 +336,7 @@ img {
 }
 #alert-overlay.active article div {
   padding: 0.5em;
-  background-color: #FF625B;
+  background-color: #00AEDB;
   color: #fff;
 }
 #alert-overlay.active article .close {
@@ -502,3 +519,5 @@ main .map-panel #legend.active .legend span {
 main .map-panel #legend {
   display: none;
 }
+
+/*# sourceMappingURL=/styles.8206c151.css.map */
