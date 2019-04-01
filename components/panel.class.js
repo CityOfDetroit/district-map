@@ -16,14 +16,14 @@ export default class Panel {
 
     buildMarkUp(data){
         let html = `
-        <h2>${data.properties.Name}</h2>
-        <p><strong>Section:</strong> ${data.properties.Section}</p>
-        <p><strong>Year Enacted:</strong> ${moment(data.properties.Year_Enacted).format('MMMM Do, YYYY')}</p>
-        <div id="members-information">
-            <div id="district-managers"></div>
-            <div id="council-members"></div>
-            <div id="district-inspectors"></div>
-        </div>
+           <h2>${data.properties.Name}</h2>
+            <p><strong>Section:</strong> ${data.properties.Section}</p>
+            <p><strong>Year Enacted:</strong> ${moment(data.properties.Year_Enacted).format('MMMM Do, YYYY')}</p>
+            <div id="members-information">
+                <div id="district-managers"></div>
+                <div id="council-members"></div>
+                <div id="district-inspectors"></div>
+            </div>
         `;
         jQuery.ajax({
             method: 'GET',
