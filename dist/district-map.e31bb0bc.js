@@ -46146,15 +46146,15 @@ class Panel {
       url: 'https://detroitmi.gov/rest/district-managers?_format=hal_json'
     }).done(function (data) {
       if (data && data.length) {
-        let managersHtml = '<h1>Managers</h1><ul>';
+        let managersHtml = '<article class="text-content">' + '<span>Managers</span><a>';
         let atLeastOne = false;
         data.forEach(manager => {
           if (manager.field_contact_position && manager.field_contact_position.toLowerCase().indexOf(selectedDistrictName) >= 0) {
-            managersHtml += `<li>${manager.title}</li>`;
+            managersHtml += `<span>${manager.title}</span><br>`;
             atLeastOne = true;
           }
         });
-        managersHtml += '</ul>';
+        managersHtml += '</a>' + '</article>';
 
         if (atLeastOne) {
           jQuery('#district-managers').html(managersHtml);
@@ -46167,15 +46167,15 @@ class Panel {
     }).done(function (data) {
       if (data && data.length) {
         const selectedDistrictId = districtsMap[selectedDistrictName];
-        let councilMembersHtml = '<h1>Council Members</h1><ul>';
+        let councilMembersHtml = '<article class="text-content"><span>Council Members</span><a>';
         let atLeastOne = false;
         data.forEach(member => {
           if (member.tid === selectedDistrictId + '') {
             atLeastOne = true;
-            councilMembersHtml += `<li>${member.field_organization_head_name}</li>`;
+            councilMembersHtml += `<span>${member.field_organization_head_name}</span><br>`;
           }
         });
-        councilMembersHtml += '</ul>';
+        councilMembersHtml += '</a></article>';
 
         if (atLeastOne) {
           jQuery('#council-members').html(councilMembersHtml);
@@ -46187,15 +46187,15 @@ class Panel {
       url: 'https://detroitmi.gov/rest/district-inspectors?_format=hal_json'
     }).done(function (data) {
       if (data && data.length) {
-        let inspectorsHtml = '<h1>Inspectors</h1><ul>';
+        let inspectorsHtml = '<article class="text-content"><span>Inspectors</span><a>';
         let atLeastOne = false;
         data.forEach(inspector => {
           if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
             atLeastOne = true;
-            inspectorsHtml += `<li>${inspector.title}</li>`;
+            inspectorsHtml += `<span>${inspector.title}</span>`;
           }
         });
-        inspectorsHtml += '</ul>';
+        inspectorsHtml += '</a>';
 
         if (atLeastOne) {
           jQuery('#district-inspectors').html(inspectorsHtml);

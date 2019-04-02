@@ -299,23 +299,6 @@ img {
   transition: all 0.2s ease-in-out;
 }
 
-.session {
-  margin-bottom: 20px;
-}
-.session .row {
-  height: 20px;
-  width: 100%;
-}
-.session .colors {
-  background: linear-gradient(to right, #CF3234, #00AEDB, #00B159, #E48F22);
-  margin-bottom: 5px;
-}
-.session .label {
-  width: auto;
-  display: inline-block;
-  text-align: center;
-}
-
 #alert-overlay.active {
   position: absolute;
   z-index: 5;
@@ -349,6 +332,39 @@ img {
   padding: 0.25em 0.5em;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.text-content {
+  font-size: 80%;
+  flex: 1;
+  margin-right: 0.5em;
+  height: auto;
+  padding: 0.75em 0.5em 2em 3em;
+  border: 1px solid #009581;
+  position: relative;
+  top: 1em;
+  left: -2em;
+}
+
+article > span {
+  position: absolute;
+  padding: 0.25em;
+  font-weight: bold;
+  background-color: #EAEAEA;
+  top: -1.15em;
+  left: 3em;
+}
+
+#district-managers {
+  padding-bottom: 0.9em;
+}
+
+#council-members {
+  padding-bottom: 0.9em;
+}
+
+#district-inspectors {
+  padding-bottom: 0.9em;
 }
 
 @media all and (min-width: 401px) {
