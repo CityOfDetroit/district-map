@@ -5,10 +5,12 @@ $base-duration: 500ms;
 $cubic: cubic-bezier(.64,.09,.08,1);
 // Colors
 $color-1: #004544;
-$color-2: #9fd5b3;
-$color-3: #E48F22;
-$color-4: #CF3234;
+$color-2: #9fd5b3; 
+$color-3: #E48F22;//library
+$color-4: #CF3234; //Historic dist
 $color-5: #444;
+$color-6: #00AEDB; //Schools
+$color-7: #00B159; //Park
 $white: #fff;
 // $color-1: #004544;
 // $color-2: #23a696;
@@ -53,6 +55,7 @@ img{width: 100%;}
 		transition: all .2s ease-in-out;
 	}
 }
+
 #alert-overlay.active{
 	position: absolute;
 	z-index: 5;
@@ -90,7 +93,34 @@ img{width: 100%;}
 		}
 	}
 }
-
+.text-content{
+	font-size: 80%;
+    flex: 1;
+    margin-right: .5em;
+    height: auto;
+    padding: .75em .5em 2em 3em;
+    border: 1px solid #009581;
+    position: relative;
+    top: 1em;
+    left: -2em;
+}
+article > span {
+	position: absolute;
+	padding: .25em;
+	font-weight: bold;
+	background-color:#EAEAEA;
+	top: -1.15em;
+	left: 3em;
+}
+#district-managers{
+	padding-bottom: 0.9em;
+}
+#council-members{
+	padding-bottom: 0.9em;
+}
+#district-inspectors{
+	padding-bottom: 0.9em;
+}
 
 // ====================== mobile end ========================
 @media all and (min-width: 401px) {
