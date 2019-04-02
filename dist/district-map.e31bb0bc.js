@@ -35723,7 +35723,7 @@ var global = arguments[3];
 
 })));
 
-},{}],"node_modules/jquery/dist/jquery.js":[function(require,module,exports) {
+},{}],"node_modules/jQuery/dist/jquery.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var define;
@@ -46102,7 +46102,7 @@ exports.default = void 0;
 
 const moment = require('moment');
 
-const jQuery = require('jquery');
+const jQuery = require('jQuery');
 
 class Panel {
   constructor(container) {
@@ -46117,28 +46117,48 @@ class Panel {
     this.container.innerHTML = '';
   }
 
-  buildMarkUp(data) {
+  buildMarkUp(selectedDistrict) {
+    const districtsMap = {
+      'district 1': 1276,
+      'district 2': 1476,
+      'district 3': 1481,
+      'district 4': 1486,
+      'district 5': 1346,
+      'district 6': 1491,
+      'district 7': 1511
+    };
+    const selectedDistrictName = selectedDistrict.properties.name.toLowerCase();
     let html = `
-           <h2>${data.properties.Name}</h2>
-            <p><strong>Section:</strong> ${data.properties.Section}</p>
-            <p><strong>Year Enacted:</strong> ${moment(data.properties.Year_Enacted).format('MMMM Do, YYYY')}</p>
+            <h2>${selectedDistrict.properties.Name}</h2>
+            <p><strong>Section:</strong> ${selectedDistrict.properties.Section}</p>
+            <p><strong>Year Enacted:</strong> ${moment(selectedDistrict.properties.Year_Enacted).format('MMMM Do, YYYY')}</p>
             <div id="members-information">
                 <div id="district-managers"></div>
                 <div id="council-members"></div>
                 <div id="district-inspectors"></div>
             </div>
-        `;
+        `; // https://detroitmi.gov/rest/district-managers?_format=hal_json
+    // https://detroitmi.gov/rest/council-members?_format=hal_json
+    // https://detroitmi.gov/rest/district-inspectors?_format=hal_json
+
     jQuery.ajax({
       method: 'GET',
       url: 'https://detroitmi.gov/rest/district-managers?_format=hal_json'
     }).done(function (data) {
       if (data && data.length) {
         let managersHtml = '<h1>Managers</h1><ul>';
+        let atLeastOne = false;
         data.forEach(manager => {
-          managersHtml += `<li>${manager.title}</li>`;
+          if (manager.field_contact_position && manager.field_contact_position.toLowerCase().indexOf(selectedDistrictName) >= 0) {
+            managersHtml += `<li>${manager.title}</li>`;
+            atLeastOne = true;
+          }
         });
         managersHtml += '</ul>';
-        jQuery('#district-managers').html(managersHtml);
+
+        if (atLeastOne) {
+          jQuery('#district-managers').html(managersHtml);
+        }
       }
     }).fail(function (error) {});
     jQuery.ajax({
@@ -46146,12 +46166,20 @@ class Panel {
       url: 'https://detroitmi.gov/rest/council-members?_format=hal_json'
     }).done(function (data) {
       if (data && data.length) {
+        const selectedDistrictId = districtsMap[selectedDistrictName];
         let councilMembersHtml = '<h1>Council Members</h1><ul>';
+        let atLeastOne = false;
         data.forEach(member => {
-          councilMembersHtml += `<li>${member.field_organization_head_name}</li>`;
+          if (member.tid === selectedDistrictId + '') {
+            atLeastOne = true;
+            councilMembersHtml += `<li>${member.field_organization_head_name}</li>`;
+          }
         });
         councilMembersHtml += '</ul>';
-        jQuery('#council-members').html(councilMembersHtml);
+
+        if (atLeastOne) {
+          jQuery('#council-members').html(councilMembersHtml);
+        }
       }
     }).fail(function (error) {});
     jQuery.ajax({
@@ -46159,12 +46187,19 @@ class Panel {
       url: 'https://detroitmi.gov/rest/district-inspectors?_format=hal_json'
     }).done(function (data) {
       if (data && data.length) {
-        let inspectorsHtml = '<h1>Managers</h1><ul>';
+        let inspectorsHtml = '<h1>Inspectors</h1><ul>';
+        let atLeastOne = false;
         data.forEach(inspector => {
-          inspectorsHtml += `<li>${inspector.title}</li>`;
+          if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
+            atLeastOne = true;
+            inspectorsHtml += `<li>${inspector.title}</li>`;
+          }
         });
         inspectorsHtml += '</ul>';
-        jQuery('#district-inspectors').html(inspectorsHtml);
+
+        if (atLeastOne) {
+          jQuery('#district-inspectors').html(inspectorsHtml);
+        }
       }
     }).fail(function (error) {});
     return html;
@@ -46173,7 +46208,7 @@ class Panel {
 }
 
 exports.default = Panel;
-},{"moment":"node_modules/moment/moment.js","jquery":"node_modules/jquery/dist/jquery.js"}],"components/controller.class.js":[function(require,module,exports) {
+},{"moment":"node_modules/moment/moment.js","jQuery":"node_modules/jQuery/dist/jquery.js"}],"components/controller.class.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46592,7 +46627,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51778" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65232" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
