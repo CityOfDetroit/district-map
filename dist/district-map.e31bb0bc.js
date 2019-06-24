@@ -23240,7 +23240,7 @@ function toNumber(value) {
 
 module.exports = debounce;
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/events/events.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/events/events.js":[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -23733,7 +23733,7 @@ module.exports = invariant;
 
 module.exports.DEFAULT_ENDPOINT = 'https://api.mapbox.com';
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -25130,7 +25130,7 @@ return Promise$1;
 
 
 
-},{"process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/mapbox/lib/promise.js":[function(require,module,exports) {
+},{"process":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/mapbox/lib/promise.js":[function(require,module,exports) {
 'use strict';
 
 // Installs ES6 Promise polyfill if a native Promise is not available
@@ -28512,7 +28512,7 @@ module.exports = (function(){
   return result;
 })();
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/node-libs-browser/node_modules/punycode/punycode.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/node-libs-browser/node_modules/punycode/punycode.js":[function(require,module,exports) {
 var global = arguments[3];
 var define;
 /*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -29049,7 +29049,7 @@ var define;
 
 }(this));
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/util.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/util.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = {
@@ -29067,7 +29067,7 @@ module.exports = {
   }
 };
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/decode.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/decode.js":[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -29153,7 +29153,7 @@ module.exports = function (qs, sep, eq, options) {
 var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/encode.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/encode.js":[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -29242,12 +29242,12 @@ var objectKeys = Object.keys || function (obj) {
 
   return res;
 };
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/index.js":[function(require,module,exports) {
+},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/index.js":[function(require,module,exports) {
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
-},{"./decode":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/decode.js","./encode":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/encode.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/url.js":[function(require,module,exports) {
+},{"./decode":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/decode.js","./encode":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/encode.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/url.js":[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -29981,7 +29981,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"punycode":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/node-libs-browser/node_modules/punycode/punycode.js","./util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/util.js","querystring":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/index.js"}],"node_modules/mapbox/lib/paginator.js":[function(require,module,exports) {
+},{"punycode":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/node-libs-browser/node_modules/punycode/punycode.js","./util":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/util.js","querystring":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/index.js"}],"node_modules/mapbox/lib/paginator.js":[function(require,module,exports) {
 'use strict';
 
 // install ES6 Promise polyfill
@@ -30022,7 +30022,7 @@ var paginator = interceptor({
 
 module.exports = paginator;
 
-},{"./promise":"node_modules/mapbox/lib/promise.js","rest/interceptor":"node_modules/rest/interceptor.js","rest/parsers/rfc5988":"node_modules/rest/parsers/rfc5988.js","url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/url.js","querystring":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/index.js"}],"node_modules/mapbox/lib/standard_response.js":[function(require,module,exports) {
+},{"./promise":"node_modules/mapbox/lib/promise.js","rest/interceptor":"node_modules/rest/interceptor.js","rest/parsers/rfc5988":"node_modules/rest/parsers/rfc5988.js","url":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/url/url.js","querystring":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/querystring-es3/index.js"}],"node_modules/mapbox/lib/standard_response.js":[function(require,module,exports) {
 var interceptor = require('rest/interceptor');
 
 var standardResponse = interceptor({
@@ -30923,7 +30923,7 @@ MapboxGeocoder.prototype = {
 
 module.exports = MapboxGeocoder;
 
-},{"suggestions":"node_modules/suggestions/index.js","lodash.debounce":"node_modules/lodash.debounce/index.js","xtend":"node_modules/xtend/immutable.js","events":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/events/events.js","./exceptions":"node_modules/@mapbox/mapbox-gl-geocoder/lib/exceptions.js","mapbox/lib/services/geocoding":"node_modules/mapbox/lib/services/geocoding.js"}],"components/map.class.js":[function(require,module,exports) {
+},{"suggestions":"node_modules/suggestions/index.js","lodash.debounce":"node_modules/lodash.debounce/index.js","xtend":"node_modules/xtend/immutable.js","events":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/events/events.js","./exceptions":"node_modules/@mapbox/mapbox-gl-geocoder/lib/exceptions.js","mapbox/lib/services/geocoding":"node_modules/mapbox/lib/services/geocoding.js"}],"components/map.class.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46092,7 +46092,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{"process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"components/panel.class.js":[function(require,module,exports) {
+},{"process":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"components/panel.class.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46137,13 +46137,14 @@ class Panel {
                 <div id="council-members"></div>
                 <div id="district-inspectors"></div>
             </div>
-        `; // https://detroitmi.gov/rest/district-managers?_format=hal_json
-    // https://detroitmi.gov/rest/council-members?_format=hal_json
-    // https://detroitmi.gov/rest/district-inspectors?_format=hal_json
+        `; //APIs
+    // https://detroitmi.gov/rest/district-managers?_format=json
+    // https://detroitmi.gov/rest/council-members?_format=json
+    // https://detroitmi.gov/rest/district-inspectors?_format=json
 
     jQuery.ajax({
       method: 'GET',
-      url: 'https://detroitmi.gov/rest/district-managers?_format=hal_json'
+      url: 'https://detroitmi.gov/rest/district-managers?_format=json'
     }).done(function (data) {
       if (data && data.length) {
         let managersHtml = '<article class="text-content">' + '<span>Managers</span><a>';
@@ -46163,14 +46164,17 @@ class Panel {
     }).fail(function (error) {});
     jQuery.ajax({
       method: 'GET',
-      url: 'https://detroitmi.gov/rest/council-members?_format=hal_json'
+      url: 'https://detroitmi.gov/rest/council-members?_format=json'
     }).done(function (data) {
       if (data && data.length) {
         const selectedDistrictId = districtsMap[selectedDistrictName];
         let councilMembersHtml = '<article class="text-content"><span>Council Members</span><a>';
         let atLeastOne = false;
+        const uniqueNames = {};
         data.forEach(member => {
-          if (member.tid === selectedDistrictId + '') {
+          if (member.tid === selectedDistrictId + '' && !uniqueNames[member.field_organization_head_name]) {
+            console.log(member.field_organization_head_name);
+            uniqueNames[member.field_organization_head_name] = true;
             atLeastOne = true;
             councilMembersHtml += `<span>${member.field_organization_head_name}</span><br>`;
           }
@@ -46184,10 +46188,10 @@ class Panel {
     }).fail(function (error) {});
     jQuery.ajax({
       method: 'GET',
-      url: 'https://detroitmi.gov/rest/district-inspectors?_format=hal_json'
+      url: 'https://detroitmi.gov/rest/district-inspectors?_format=json'
     }).done(function (data) {
       if (data && data.length) {
-        let inspectorsHtml = '<article class="text-content"><span>Inspectors</span><a>';
+        let inspectorsHtml = '<article class="text-content"><span>Enforcers</span><a>';
         let atLeastOne = false;
         data.forEach(inspector => {
           if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
@@ -46599,7 +46603,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     document.querySelector('.data-panel.active').className = 'data-panel';
   });
 })(window);
-},{"./components/controller.class":"components/controller.class.js","./img/man.png":"img/man.png"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./components/controller.class":"components/controller.class.js","./img/man.png":"img/man.png"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46627,7 +46631,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65232" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60602" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -46802,5 +46806,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/district-map.e31bb0bc.js.map

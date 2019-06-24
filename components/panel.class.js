@@ -35,12 +35,13 @@ export default class Panel {
                 <div id="district-inspectors"></div>
             </div>
         `;
-        // https://detroitmi.gov/rest/district-managers?_format=hal_json
-        // https://detroitmi.gov/rest/council-members?_format=hal_json
-        // https://detroitmi.gov/rest/district-inspectors?_format=hal_json
+        //APIs
+        // https://detroitmi.gov/rest/district-managers?_format=json
+        // https://detroitmi.gov/rest/council-members?_format=json
+        // https://detroitmi.gov/rest/district-inspectors?_format=json
         jQuery.ajax({
             method: 'GET',
-            url: 'https://detroitmi.gov/rest/district-managers?_format=hal_json'
+            url: 'https://detroitmi.gov/rest/district-managers?_format=json'
         }).done(function (data) {
             if(data && data.length) {
                 let managersHtml = '<article class="text-content">'+'<span>Managers</span><a>';
@@ -61,14 +62,17 @@ export default class Panel {
 
         jQuery.ajax({
             method: 'GET',
-            url: 'https://detroitmi.gov/rest/council-members?_format=hal_json'
+            url: 'https://detroitmi.gov/rest/council-members?_format=json'
         }).done(function (data) {
             if(data && data.length) {
                 const selectedDistrictId = districtsMap[selectedDistrictName];
                 let councilMembersHtml = '<article class="text-content"><span>Council Members</span><a>';
                 let atLeastOne = false;
+                const uniqueNames = {}
                 data.forEach((member) => {
-                    if(member.tid === (selectedDistrictId + '')) {
+                    if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name]) {
+                        console.log(member.field_organization_head_name);
+                        uniqueNames[member.field_organization_head_name] = true;
                         atLeastOne = true;
                         councilMembersHtml += `<span>${member.field_organization_head_name}</span><br>`;
                     }
@@ -83,10 +87,10 @@ export default class Panel {
 
         jQuery.ajax({
             method: 'GET',
-            url: 'https://detroitmi.gov/rest/district-inspectors?_format=hal_json'
+            url: 'https://detroitmi.gov/rest/district-inspectors?_format=json'
         }).done(function (data) {
             if(data && data.length) {
-                let inspectorsHtml = '<article class="text-content"><span>Inspectors</span><a>'
+                let inspectorsHtml = '<article class="text-content"><span>Enforcers</span><a>'
                 let atLeastOne = false;
                 data.forEach((inspector) => {
                     if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
