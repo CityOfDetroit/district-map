@@ -93,34 +93,7 @@ img{width: 100%;}
 		}
 	}
 }
-.text-content{
-	font-size: 80%;
-    flex: 1;
-    margin-right: .5em;
-    height: auto;
-    padding: .75em .5em 2em 3em;
-    border: 1px solid #009581;
-    position: relative;
-    top: 1em;
-    left: -2em;
-}
-article > span {
-	position: absolute;
-	padding: .25em;
-	font-weight: bold;
-	background-color:#EAEAEA;
-	top: -1.15em;
-	left: 3em;
-}
-#district-managers{
-	padding-bottom: 0.9em;
-}
-#council-members{
-	padding-bottom: 0.9em;
-}
-#district-inspectors{
-	padding-bottom: 0.9em;
-}
+
 
 // ====================== mobile end ========================
 @media all and (min-width: 401px) {
@@ -151,6 +124,97 @@ main.hidden{
   top: 100vh;
   transition: all $base-duration ease;
 }
+//================grid and  common class for members information========================
+$grid__bp-sm: 576;
+$grid__bp-md: 768;
+$grid__bp-lg: 992;
+$grid__bp-xl: 1200;
+$grid__cols: 12;
+
+$map-grid-props: (
+        '': 0,
+        '-sm': $grid__bp-sm,
+        '-md': $grid__bp-md,
+        '-lg': $grid__bp-lg,
+        '-xl': $grid__bp-xl
+);
+
+@mixin create-mq($breakpoint) {
+  @if($breakpoint == 0) {
+    @content;
+  } @else {
+    @media screen and (min-width: $breakpoint *1px) {
+      @content;
+    }
+  }
+}
+
+@mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
+  @include create-mq($breakpoint) {
+    @for $i from 1 through $grid-cols {
+      &__col#{$modifier}-#{$i} {
+        flex-basis: (100 / ($grid-cols / $i) ) * 1%;
+      }
+    }
+  }
+}
+
+.container {
+  max-width: $grid__bp-md * 1px;
+  margin: 0 auto;
+  &--fluid {
+    margin: 0;
+    max-width: 100%;
+  }
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  @each $modifier , $breakpoint in $map-grid-props {
+    @include create-col-classes($modifier, $grid__cols, $breakpoint);
+  }
+}
+
+//Styling of grid for demostration purposes
+.container {
+  padding: 10px;
+  box-sizing: border-box;
+  &__row {
+   
+    &--nested {
+     
+    }
+  }
+
+  @at-root {
+    [class*='container__col-'] {
+      &.container__col--higher {
+        // min-height: 60px;
+      }
+    //   min-height: 30px;
+    //   background-color: #ff6f69;
+    //   outline: 1px solid #ffcc5c;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+}
+
+
+%memberContainer{
+	    font-size: 80%;
+		flex: 1;
+		margin-right: .5em;
+		height: auto;
+		padding: .75em .5em 2em 3em;
+		border: 1px solid #009581;
+		position: relative;
+		top: 1em;
+		left: -2em;
+}
 
 main {
 	position: relative;
@@ -169,6 +233,72 @@ main {
 		padding: 0 1em;
 		margin-right: 1em;
 		transition: all .2s ease-in-out;
+		//================ Sidebar member information===========
+		.content-section{
+			.members-information{
+				.council-members{
+					padding-bottom: 0.9em;
+				
+					&__container{
+						@extend %memberContainer;
+					
+						&--title{
+							position: absolute;
+							padding: .25em;
+							font-weight: bold;
+							background-color:#EAEAEA;
+							top: -1.10em;
+							 left: 7em;
+						}
+						&--row{
+
+							&__image{
+								img{
+									left: -5%;
+									max-width: 20%;
+									position: absolute;
+									border-radius: 50%;
+									bottom: 0px;
+
+								}
+							}
+						}
+					}
+				}
+
+				.district-managers{
+					padding-bottom: 0.9em;
+					&__container{
+						@extend %memberContainer;
+					
+						&--title{
+							position: absolute;
+							padding: .25em;
+							font-weight: bold;
+							background-color:#EAEAEA;
+							top: -1.15em;
+							left: 3em;
+						}
+					}
+				}
+				
+				.district-inspectors{
+					padding-bottom: 0.9em;
+					&__container{
+						@extend %memberContainer;
+					
+						&--title{
+							position: absolute;
+							padding: .25em;
+							font-weight: bold;
+							background-color:#EAEAEA;
+							top: -1.15em;
+							left: 3em;
+						}
+					}
+				}
+			}
+		}
 	}
 
   .data-panel{
@@ -312,4 +442,10 @@ main {
     }
 	}
 }
+// =========================Sidebar=====================================
+
+
+
+//============================Sidebar Ends==========================
+
 // ===================== main end =========================
