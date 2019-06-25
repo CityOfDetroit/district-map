@@ -124,7 +124,7 @@ main.hidden{
   top: 100vh;
   transition: all $base-duration ease;
 }
-//================grid and  common class for members information========================
+//================grid ========================
 $grid__bp-sm: 576;
 $grid__bp-md: 768;
 $grid__bp-lg: 992;
@@ -167,7 +167,7 @@ $map-grid-props: (
     max-width: 100%;
   }
   &__row {
-    display: flex;
+   // display: flex;
     flex-wrap: wrap;
     width: 100%;
   }
@@ -175,10 +175,7 @@ $map-grid-props: (
     @include create-col-classes($modifier, $grid__cols, $breakpoint);
   }
 }
-
-//Styling of grid for demostration purposes
 .container {
-  padding: 10px;
   box-sizing: border-box;
   &__row {
    
@@ -190,30 +187,37 @@ $map-grid-props: (
   @at-root {
     [class*='container__col-'] {
       &.container__col--higher {
-        // min-height: 60px;
       }
-    //   min-height: 30px;
-    //   background-color: #ff6f69;
-    //   outline: 1px solid #ffcc5c;
-      margin: 10px 0;
       display: flex;
-      align-items: center;
-      justify-content: space-around;
     }
   }
 }
-
+//=====================end of grid =====================
 
 %memberContainer{
 	    font-size: 80%;
 		flex: 1;
 		margin-right: .5em;
 		height: auto;
-		padding: .75em .5em 2em 3em;
 		border: 1px solid #009581;
 		position: relative;
 		top: 1em;
 		left: -2em;
+}
+%containerTitle{
+	position: absolute;
+	padding: .25em;
+	font-weight: bold;
+	background-color:#EAEAEA;
+	top: -1.10em;
+	 left: 7em;
+}
+%containerImage{
+	left: -14%;
+    max-width: 18%;
+    position: absolute;
+    border-radius: 50%;
+    bottom: -6px;
 }
 
 main {
@@ -233,35 +237,45 @@ main {
 		padding: 0 1em;
 		margin-right: 1em;
 		transition: all .2s ease-in-out;
-		//================ Sidebar member information===========
+		//================ Sidebar members information===========
 		.content-section{
+			img{
+				margin: auto;
+    width: 5em;
+			}
+			h2{
+				text-align: center;
+			}
+
+			.doYouKnows{
+				@extend %memberContainer;
+			}
 			.members-information{
 				.council-members{
 					padding-bottom: 0.9em;
 				
 					&__container{
+						padding: 10px;
 						@extend %memberContainer;
 					
 						&--title{
-							position: absolute;
-							padding: .25em;
-							font-weight: bold;
-							background-color:#EAEAEA;
-							top: -1.10em;
-							 left: 7em;
+							@extend %containerTitle;
 						}
 						&--row{
 
 							&__image{
 								img{
-									left: -5%;
-									max-width: 20%;
-									position: absolute;
-									border-radius: 50%;
-									bottom: 0px;
+									@extend %containerImage;
 
 								}
 							}
+							&__name{
+								ul > li{
+										display: block;
+								}
+
+							}
+
 						}
 					}
 				}
@@ -272,12 +286,21 @@ main {
 						@extend %memberContainer;
 					
 						&--title{
-							position: absolute;
-							padding: .25em;
-							font-weight: bold;
-							background-color:#EAEAEA;
-							top: -1.15em;
-							left: 3em;
+							@extend %containerTitle
+						}
+						&--row{
+
+							&__image{
+								img{
+									@extend %containerImage;
+								}
+							}
+							&__name{
+								ul > li{
+										display: block;
+								}
+
+							}
 						}
 					}
 				}
@@ -288,14 +311,48 @@ main {
 						@extend %memberContainer;
 					
 						&--title{
-							position: absolute;
-							padding: .25em;
-							font-weight: bold;
-							background-color:#EAEAEA;
-							top: -1.15em;
-							left: 3em;
+							@extend %containerTitle
+						}
+						&--row{
+
+							&__image{
+								img{
+									@extend %containerImage;
+								}
+							}
+							&__name{
+								ul > li{
+										display: block;
+								}
+
+							}
 						}
 					}
+				}
+				.deputy-managers{
+					padding-bottom: 0.9em;
+					&__container{
+						@extend %memberContainer;
+					
+						&--title{
+							@extend %containerTitle
+						}
+						&--row{
+
+							&__image{
+								img{
+									@extend %containerImage;
+								}
+							}
+							&__name{
+								ul > li{
+										display: inline-block;
+								}
+
+							}
+						}
+					}
+
 				}
 			}
 		}
