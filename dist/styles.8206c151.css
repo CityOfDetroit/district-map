@@ -473,7 +473,7 @@ main .data-panel.active .content-section .members-information .deputy-managers__
 }
 
 main .data-panel.active .content-section .members-information .deputy-managers__container--row__name, main .data-panel.active .content-section .members-information .district-inspectors__container--row__name, main .data-panel.active .content-section .members-information .district-managers__container--row__name, main .data-panel.active .content-section .members-information .council-members__container--row__name {
-  padding: 5%;
+  padding: 3%;
 }
 
 main .data-panel.active .content-section .members-information .deputy-managers__container--row__image img, main .data-panel.active .content-section .members-information .district-inspectors__container--row__image img, main .data-panel.active .content-section .members-information .district-managers__container--row__image img, main .data-panel.active .content-section .members-information .council-members__container--row__image img {
