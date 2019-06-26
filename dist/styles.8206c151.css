@@ -536,6 +536,7 @@ main .data-panel.active .content-section .doYouKnows .header-icon::before {
   content: "";
 }
 main .data-panel.active .content-section li {
+  padding: 2px;
   display: block;
 }
 main .data-panel.active .content-section .members-information .council-members {
