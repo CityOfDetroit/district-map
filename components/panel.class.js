@@ -1,4 +1,7 @@
 'use strict';
+
+import { RSA_PKCS1_OAEP_PADDING } from 'constants';
+
 const moment = require('moment');
 const jQuery = require('jQuery');
 export default class Panel {
@@ -14,7 +17,7 @@ export default class Panel {
         this.container.innerHTML = '';
     }
 
-    buildMarkUp(selectedDistrict, selectedField){
+    buildMarkUp(selectedDistrict){
         const districtsMap = {
             'district 1': 1276,
             'district 2': 1476,
@@ -76,6 +79,7 @@ export default class Panel {
         const learnMoreLinksList = learnMoreLinks[selectedDistrictName];
 
         //console.log("selectedDistrict"+ selectedDistrict.properties.name.toLowerCase() )
+
         let html = `
         <div class="content-section__logo">
         <img src="http://detroitmi.gov/sites/default/files/inline-images/logo-220x220_0.jpg">
@@ -121,44 +125,43 @@ export default class Panel {
         // https://detroitmi.gov/rest/council-members?_format=json
         // https://detroitmi.gov/rest/district-inspectors?_format=json
         // Note: inspector is changed to enforcers
-        // 
-      
+   
 
-        jQuery.ajax({
-            method: 'GET',
-            url: 'https://detroitmi.gov/rest/council-members?_format=json'
-        }).done(function (data) {
-            if(data && data.length) {
-                const selectedDistrictId = districtsMap[selectedDistrictName];
-                let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
+    // jQuery.ajax({
+    //         method: 'GET',
+    //         url: 'https://detroitmi.gov/rest/council-members?_format=json',
+    //     }).done(function (data) {
+    //         if(data && data.length) {
+    //             const selectedDistrictId = districtsMap[selectedDistrictName];
+    //             let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
 
-                let atLeastOne = false;
-                const uniqueNames = {}
-                data.forEach((member) => {
-                    if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
-                        uniqueNames[member.field_organization_head_name && member.field_image] = true;
-                        atLeastOne = true;
-                        councilMembersHtml += `<div class="council-members__container--row ">
-                        <a href="${learnMoreLinksList}">
-                        <div class="council-members__container--row__image "> 
-                        <img class="member-image" src = "${member.field_image}"></div>
-                        <div class="council-members__container--row__name ">
-                        <ul>
-                        <li>${member.field_organization_head_name}</li>
-                        </ul>
-                        </div>
-                        </a>
-                        </div>`;
+    //             let atLeastOne = false;
+    //             const uniqueNames = {}
+    //             data.forEach((member) => {
+    //                 if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
+    //                     uniqueNames[member.field_organization_head_name && member.field_image] = true;
+    //                     atLeastOne = true;
+    //                     councilMembersHtml += `<div class="council-members__container--row ">
+    //                     <a href="${learnMoreLinksList}">
+    //                     <div class="council-members__container--row__image "> 
+    //                     <img class="member-image" src = "${member.field_image}"></div>
+    //                     <div class="council-members__container--row__name ">
+    //                     <ul>
+    //                     <li>${member.field_organization_head_name}</li>
+    //                     </ul>
+    //                     </div>
+    //                     </a>
+    //                     </div>`;
+    //                 }
+    //             });
+    //             councilMembersHtml += '</div>';
+    //             if(atLeastOne) {
+    //                 jQuery('.council-members').html(councilMembersHtml);
+    //             }
+    //         }
+    //     }).fail(function (error) {
+    //     });
 
-                    }
-                });
-                councilMembersHtml += '</div>';
-                if(atLeastOne) {
-                    jQuery('.council-members').html(councilMembersHtml);
-                }
-            }
-        }).fail(function (error) {
-        });
         jQuery.ajax({
             method: 'GET',
             url: 'https://detroitmi.gov/rest/district-managers?_format=json'
@@ -249,12 +252,53 @@ export default class Panel {
                     }                    
                 });
                 inspectorsHtml += '</a>'+'</div>';
-                if(atLeastOne) {
-                    jQuery('.district-inspectors').html(inspectorsHtml);
+                if(atLeastOne,el) {
+                    document.getElementsByClassName('district-inspectors').innerHtml(inspectorsHtml);
+                    console.log(document.getElementsByClassName('district-inspectors').html(inspectorsHtml));
                 }
             }
         }).fail(function (error) {
         });
-        return html;
-    }
+
+        // fetch('https://detroitmi.gov/rest/council-members?_format=json')
+        // .then(resp => resp.json())
+        // .then((data) =>{
+        //        console.log(data);
+        //        if(data && data.length) {
+        //            console.log(data.length);
+        //         const selectedDistrictId = districtsMap[selectedDistrictName];
+        //         console.log('idcheck'+ districtsMap[selectedDistrictName] );
+        //         let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
+        //         console.log(councilMembersHtml);
+        //         let atLeastOne = false;
+        //         const uniqueNames = {}
+        //         data.forEach((member) => {
+        //             if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
+    
+        //                 console.log(member.selectedDistrictId + member.field_organization_head_name )
+        //                 uniqueNames[member.field_organization_head_name && member.field_image] = true;
+        //                 atLeastOne = true;
+        //                 councilMembersHtml += `<div class="council-members__container--row ">
+        //                 <a href="${learnMoreLinksList}">
+        //                 <div class="council-members__container--row__image "> 
+        //                 <img class="member-image" src = "${member.field_image}"></div>
+        //                 <div class="council-members__container--row__name ">
+        //                 <ul>
+        //                 <li>${member.field_organization_head_name}</li>
+        //                 </ul>
+        //                 </div>
+        //                 </a>
+        //                 </div>`;
+        //             }
+        //         });
+        //         councilMembersHtml += '</div>';
+        //         if(atLeastOne) {
+        //             const elemnetId = document.getElementsByClassName('.council-members');
+        //             elemnetId.innerHtml(councilMembersHtml);
+        //         }
+        //     }
+        // }).fail(function (error) {
+        // });
+       return html;
+   }
 }

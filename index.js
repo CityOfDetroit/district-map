@@ -9,7 +9,7 @@ import Controller from './components/controller.class';
       layers: ['council-fill']
     });
     if (features.length) {
-      console.log(features[0]);
+      //console.log(features[0]);
       this.setFilter('council-hover', ['==', 'districts', features[0].properties.districts]);
     }else{
       features = this.queryRenderedFeatures(e.point, {
@@ -38,7 +38,7 @@ import Controller from './components/controller.class';
     let features = this.queryRenderedFeatures(e.point, {
       layers: ['council-fill']
     });
-    console.log(e);
+    ////console.log(e);
     if (features.length) {
       this.setFilter('council-featured', ['==', 'districts', '']);
       controller.map.map.flyTo({
@@ -73,12 +73,12 @@ import Controller from './components/controller.class';
     document.querySelector('.data-panel').className = 'data-panel active';
   });
   controller.map.geocoder.on('result', function (ev) {
-    console.log(ev);
+    //console.log(ev);
     if(controller.geocoderOff){
       controller.geocoderOff = false;
       controller.geoResults(ev, controller);
     }else{
-      console.log('extra call');
+      //console.log('extra call');
     }
   });
   controller.map.map.loadImage(person, function(error, image) {
