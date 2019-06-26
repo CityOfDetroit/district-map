@@ -46179,30 +46179,49 @@ class Panel {
 
     let html = `
         <div class="content-section__logo">
-            <img src="http://detroitmi.gov/sites/default/files/inline-images/logo-220x220_0.jpg">
+        <img src="http://detroitmi.gov/sites/default/files/inline-images/logo-220x220_0.jpg">
+    </div>
+    <h2>${selectedDistrictName.toUpperCase()}</h2>
+    <p>${districtDescriptionSection}</p>
+    <div class="members-information">
+        <div class="container">
+        <ul class="container__row">
+        <li class="council-members container__col-sm-12 container__col-md-6"></li>
+        <li></li>
+        </ul>
+        </div>
+        <div class="container">
+        <ul class="container__row">
+            <li class="district-managers container__col-sm-12 container__col-md-6"></li>
+            <li class="deputy-managers container__col-sm-12 container__col-md-6"></li>
+        </ul>
+        </div>
+        <div class="container">
+        <ul class="container__row">
+            <li class="district-inspectors container__col-sm-12 container__col-md-6"></li>
+            <li class="nfos-police district-managers__container container__col-sm-12 container__col-md-6">
+                <div class="district-managers__container--title">
+                    NFOS
+                </div>
+                <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
+                        of police officers</a></p>
+            </li>
+            </ul>
             </div>
-            <h2>${selectedDistrictName.toUpperCase()}</h2>
-            <p>${districtDescriptionSection}</p>
-            <div class="members-information">
-               
-                <div class="council-members"></div>
-                <div class="district-managers"></div>
-                <div class="deputy-managers"></div>
-                <div class="district-inspectors"></div>
-            </div>
-            <div class="doYouKnows">
-             <h3>DID YOU KNOW?</h3>
-             <p>${doYouKnowsList}</p>
-            </div>
-            <div class="LearnMoreButton">
-            <button><a href="${learnMoreLinksList}"> Learn More</a>
+    <div class="doYouKnows">
+        <h3 class="icon header-icon">DID YOU KNOW?</h3>
+        <p>${doYouKnowsList}</p>
+    </div>
+    <div class="content-section__LearnMoreButton">
+        <button><a href="${learnMoreLinksList}"> Learn More</a>
         </button>
-            </div>
+    </div>
         `; //APIs
     // https://detroitmi.gov/rest/district-managers?_format=json
     // https://detroitmi.gov/rest/council-members?_format=json
     // https://detroitmi.gov/rest/district-inspectors?_format=json
     // Note: inspector is changed to enforcers
+    // 
 
     jQuery.ajax({
       method: 'GET',
@@ -46210,7 +46229,7 @@ class Panel {
     }).done(function (data) {
       if (data && data.length) {
         const selectedDistrictId = districtsMap[selectedDistrictName];
-        let councilMembersHtml = '<div class="council-members__container container"><span class="council-members__container--title">Council</span>';
+        let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
         let atLeastOne = false;
         const uniqueNames = {};
         data.forEach(member => {
@@ -46218,13 +46237,15 @@ class Panel {
             uniqueNames[member.field_organization_head_name && member.field_image] = true;
             atLeastOne = true;
             councilMembersHtml += `<div class="council-members__container--row ">
-                        <div class="council-members__container--row__image container__col-md-2"> 
+                        <a href="${learnMoreLinksList}">
+                        <div class="council-members__container--row__image "> 
                         <img class="member-image" src = "${member.field_image}"></div>
-                        <div class="council-members__container--row__name container__col-md-8">
+                        <div class="council-members__container--row__name ">
                         <ul>
                         <li>${member.field_organization_head_name}</li>
                         </ul>
                         </div>
+                        </a>
                         </div>`;
           }
         });
@@ -46243,18 +46264,21 @@ class Panel {
         let atLeastOne = false; // District Manager data
 
         const districtManagerPosition = districtManager[selectedDistrictName];
-        let DistrictManager = '<div class="district-managers__container container">' + '<span class="district-managers__container--title">District Manager</span>';
+        let DistrictManager = '<div class="district-managers__container">' + '<span class="district-managers__container--title">District Manager</span>';
         data.forEach(districtManager => {
           if (districtManager.field_contact_position === districtManagerPosition + '') {
-            DistrictManager += `<div class="district-managers__container--row container__row">
-                         <div class="district-managers__container--row__image container__col-md-2"> 
+            DistrictManager += `<div class="district-managers__container--row ">
+                         <a href="${learnMoreLinksList}">
+                         <div class="district-managers__container--row__image"> 
                          <img class="member-image" src = "${districtManager.field_portrait}"></div>
-                         <div class="district-managers__container--row__name container__col-md-8"> <ul>
+                         <div class="district-managers__container--row__name">
+                          <ul>
                          <li>${districtManager.title}</li>
                          <li>${districtManager.field_telephone}</li>
+                         <li>${districtManager.field_email_address}</li>
                          </ul>
                          </div>
-                        
+                         </a>
                         </div>
                         <br>
                         <div class=""></div>
@@ -46272,18 +46296,21 @@ class Panel {
 
 
         const selectedPosition = deputyManager[selectedDistrictName];
-        let managersHtml = '<div class="district-managers__container container">' + '<span class="district-managers__container--title">Deputy Manager</span>';
+        let managersHtml = '<div class="district-managers__container">' + '<span class="district-managers__container--title">Deputy Manager</span>';
         data.forEach(manager => {
           if (manager.field_contact_position === selectedPosition + '') {
             managersHtml += `
                         <div class="district-managers__container--row">
-                        <div class="district-managers__container--row__image"> 
-                        <img class="member-image" src = "${manager.field_portrait}"></div>
-                        <div class="district-managers__container--row__name "> <ul>
+                           <a href="${learnMoreLinksList}">
+                          <div class="district-managers__container--row__image"> 
+                              <img class="member-image" src = "${manager.field_portrait}"></div>
+                          <div class="district-managers__container--row__name "> <ul>
                         <li>${manager.title}</li>
                         <li>${manager.field_telephone}</li>
+                        <li>${manager.field_email_address}</li>
                         </ul>
-                        </div>`;
+                        </div>
+                        </a>`;
             atLeastOne = true;
           }
 
@@ -46302,20 +46329,22 @@ class Panel {
       url: 'https://detroitmi.gov/rest/district-inspectors?_format=json'
     }).done(function (data) {
       if (data && data.length) {
-        let inspectorsHtml = '<div class="district-inspectors__container container"><span class="district-inspectors__container--title">Code Enforcer</span><a>';
+        let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span><a>';
         let atLeastOne = false;
         data.forEach(inspector => {
           if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
             atLeastOne = true;
             inspectorsHtml += `
                         <div class="district-managers__container--row">
-                        <div class="district-managers__container--row__image"> 
+                        <a href="${learnMoreLinksList}">
+                        <div class="district-managers__container--row__image"> </div>
                         <div class="district-managers__container--row__name"> 
                         <ul>
                         <li>${inspector.title}</li>
                         <li>${inspector.field_telephone}</li>
                         </ul>
-                        </div>`;
+                        </div>
+                        </a>`;
           }
         });
         inspectorsHtml += '</a>' + '</div>';
