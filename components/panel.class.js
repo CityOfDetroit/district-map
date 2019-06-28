@@ -126,40 +126,6 @@ export default class Panel {
         // Note: inspector is changed to enforcers
    
 
-    // jQuery.ajax({
-    //         method: 'GET',
-    //         url: 'https://detroitmi.gov/rest/council-members?_format=json',
-    //     }).done(function (data) {
-    //         if(data && data.length) {
-    //             const selectedDistrictId = districtsMap[selectedDistrictName];
-    //             let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
-
-    //             let atLeastOne = false;
-    //             const uniqueNames = {}
-    //             data.forEach((member) => {
-    //                 if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
-    //                     uniqueNames[member.field_organization_head_name && member.field_image] = true;
-    //                     atLeastOne = true;
-    //                     councilMembersHtml += `<div class="council-members__container--row ">
-    //                     <a href="${learnMoreLinksList}">
-    //                     <div class="council-members__container--row__image "> 
-    //                     <img class="member-image" src = "${member.field_image}"></div>
-    //                     <div class="council-members__container--row__name ">
-    //                     <ul>
-    //                     <li>${member.field_organization_head_name}</li>
-    //                     </ul>
-    //                     </div>
-    //                     </a>
-    //                     </div>`;
-    //                 }
-    //             });
-    //             councilMembersHtml += '</div>';
-    //             if(atLeastOne) {
-    //                 jQuery('.council-members').html(councilMembersHtml);
-    //             }
-    //         }
-    //     }).fail(function (error) {
-    //     });
  fetch('https://detroitmi.gov/rest/district-managers?_format=json')
  .then(resp => resp.json())
  .then((data)=> {
@@ -189,7 +155,7 @@ export default class Panel {
                         <span></span>`;
                         atLeastOne = true;
                     }
-                    console.log("deputy-managers"+ districtManager.field_contact_position === (districtManagerPosition + ''))
+                   // console.log("deputy-managers"+ districtManager.field_contact_position === (districtManagerPosition + ''))
                 });
                 DistrictManager += '</div>';
                 if(atLeastOne) {
@@ -215,7 +181,7 @@ export default class Panel {
                         </a>`;
                         atLeastOne = true;
                     }
-                    console.log("manager"+ manager.field_contact_position === (selectedPosition + ''));
+                    //console.log("manager"+ manager.field_contact_position === (selectedPosition + ''));
                 });
                 managersHtml += '</div>';
                 if(atLeastOne) {
@@ -257,19 +223,19 @@ export default class Panel {
         fetch('https://detroitmi.gov/rest/council-members?_format=json')
         .then(resp => resp.json())
         .then((data) =>{
-               console.log(data);
+              // console.log(data);
                if(data && data.length) {
-                   console.log(data.length);
+                 //  console.log(data.length);
                 const selectedDistrictId = districtsMap[selectedDistrictName];
-                console.log('idcheck'+ districtsMap[selectedDistrictName] );
+            //    console.log('idcheck'+ districtsMap[selectedDistrictName] );
                 let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
-                console.log(councilMembersHtml);
+               // console.log(councilMembersHtml);
                 let atLeastOne = false;
                 const uniqueNames = {}
                 data.forEach((member) => {
                     if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
     
-                        console.log(member.selectedDistrictId + member.field_organization_head_name )
+                //        console.log(member.selectedDistrictId + member.field_organization_head_name )
                         uniqueNames[member.field_organization_head_name && member.field_image] = true;
                         atLeastOne = true;
                         councilMembersHtml += `<div class="council-members__container--row ">
