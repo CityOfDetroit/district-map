@@ -1,22 +1,24 @@
 'use strict';
 
-import { RSA_PKCS1_OAEP_PADDING } from 'constants';
+import {
+    RSA_PKCS1_OAEP_PADDING
+} from 'constants';
 
 const moment = require('moment');
 export default class Panel {
-    constructor(container){
+    constructor(container) {
         this.container = container;
     }
 
-    buildPanel(data){
+    buildPanel(data) {
         this.container.innerHTML = this.buildMarkUp(data);
     }
 
-    clearPanel(){
+    clearPanel() {
         this.container.innerHTML = '';
     }
 
-    buildMarkUp(selectedDistrict){
+    buildMarkUp(selectedDistrict) {
         const districtsMap = {
             'district 1': 1276,
             'district 2': 1476,
@@ -26,7 +28,7 @@ export default class Panel {
             'district 6': 1491,
             'district 7': 1511
         };
-        const deputyManager={
+        const deputyManager = {
             'district 1': "District 1 Deputy Manager ",
             'district 2': "District 2 Deputy Manager ",
             'district 3': "District 3 Deputy Manager",
@@ -36,7 +38,7 @@ export default class Panel {
             'district 7': "District 7 Deputy Manager",
         }
 
-        const districtManager ={
+        const districtManager = {
             'district 1': "District 1 Manager ",
             'district 2': "District 2 Manager",
             'district 3': "District 3 Manager ",
@@ -45,7 +47,7 @@ export default class Panel {
             'district 6': "District 6 Manager",
             'district 7': "District 7 Manager",
         }
-        const districtDescription={
+        const districtDescription = {
             'district 1': "District 1 hugs Detroit’s northwest side, with Grand River Avenue, one of the state’s oldest trading lines, as its main thoroughfare.",
             'district 2': "District 2 encompasses a wide variety of neighborhoods, from cozy bungalows to stately mansions. The resurgent Avenue of Fashion is a staple of the area.",
             'district 3': "District 3 is eastside Detroit through and through. With Gratiot Avenue as one of its main streets, it is also home to City Airport.",
@@ -54,7 +56,7 @@ export default class Panel {
             'district 6': "District 6 is one of Detroit’s most diverse areas, home to a number of Latino and Middle Eastern communities as well as some of Detroit’s oldest black-owned businesses.",
             'district 7': "District 7 is pure westside Detroit, with Rouge Park as one of this area’s centerpieces and a number of community-centric neighborhoods.",
         }
-        const doYouKnows={
+        const doYouKnows = {
             'district 1': "Did you know Grand River is actually one of the oldest trails in Michigan?",
             'district 2': "Did you know Baker’s Jazz Lounge is the oldest continuously operating jazz club in the United States?",
             'district 3': "Did you know that Detroit’s oldest bar, the Two-Way Inn, is located in District 3?",
@@ -63,7 +65,7 @@ export default class Panel {
             'district 6': "Did you know Delray was its own village until the City of Detroit annexed it in 1906?",
             'district 7': "Did you know Aviation Sub is named because an old airfield, where Henry Ford once flew private planes, was once there?",
         }
-        const learnMoreLinks={
+        const learnMoreLinks = {
             'district 1': "http://theneighborhoods.org/districts/district-1",
             'district 2': "http://theneighborhoods.org/districts/district-2",
             'district 3': "http://theneighborhoods.org/districts/district-3",
@@ -115,7 +117,8 @@ export default class Panel {
         <p>${doYouKnowsList}</p>
     </div>
     <div class="content-section__LearnMoreButton">
-        <button><a href="${learnMoreLinksList}"> Learn More</a>
+        <button>
+        <a href="${learnMoreLinksList}">Learn More</a>
         </button>
     </div>
         `;
@@ -124,20 +127,20 @@ export default class Panel {
         // https://detroitmi.gov/rest/council-members?_format=json
         // https://detroitmi.gov/rest/district-inspectors?_format=json
         // Note: inspector is changed to enforcers
-   
 
- fetch('https://detroitmi.gov/rest/district-managers?_format=json')
- .then(resp => resp.json())
- .then((data)=> {
-            if(data && data.length) {
-                let atLeastOne = false;
-                // District Manager data
-                const districtManagerPosition = districtManager[selectedDistrictName];
-                let DistrictManager = '<div class="district-managers__container">'+'<span class="district-managers__container--title">District Manager</span>';
-                data.forEach((districtManager) => {
-                    if(districtManager.field_contact_position === (districtManagerPosition + '')) {
-                        DistrictManager +=
-                         `<div class="district-managers__container--row ">
+
+        fetch('https://detroitmi.gov/rest/district-managers?_format=json')
+            .then(resp => resp.json())
+            .then((data) => {
+                if (data && data.length) {
+                    let atLeastOne = false;
+                    // District Manager data
+                    const districtManagerPosition = districtManager[selectedDistrictName];
+                    let DistrictManager = '<div class="district-managers__container">' + '<span class="district-managers__container--title">District Manager</span>';
+                    data.forEach((districtManager) => {
+                        if (districtManager.field_contact_position === (districtManagerPosition + '')) {
+                            DistrictManager +=
+                                `<div class="district-managers__container--row ">
                          <a href="${learnMoreLinksList}">
                          <div class="district-managers__container--row__image"> 
                          <img class="member-image" src = "${districtManager.field_portrait}"></div>
@@ -153,21 +156,21 @@ export default class Panel {
                         <br>
                         <div class=""></div>
                         <span></span>`;
-                        atLeastOne = true;
+                            atLeastOne = true;
+                        }
+                        // console.log("deputy-managers"+ districtManager.field_contact_position === (districtManagerPosition + ''))
+                    });
+                    DistrictManager += '</div>';
+                    if (atLeastOne) {
+                        document.getElementsByClassName('district-managers')[0].innerHTML = DistrictManager;
                     }
-                   // console.log("deputy-managers"+ districtManager.field_contact_position === (districtManagerPosition + ''))
-                });
-                DistrictManager += '</div>';
-                if(atLeastOne) {
-                    document.getElementsByClassName('district-managers')[0].innerHTML = DistrictManager;
-                }
-                // Deputy Manager data
-                const selectedPosition = deputyManager[selectedDistrictName];
-                let managersHtml = '<div class="district-managers__container">'+'<span class="district-managers__container--title">Deputy Manager</span>';
-               
-                data.forEach((manager) => {
-                    if(manager.field_contact_position === (selectedPosition + '')) {
-                        managersHtml += `
+                    // Deputy Manager data
+                    const selectedPosition = deputyManager[selectedDistrictName];
+                    let managersHtml = '<div class="district-managers__container">' + '<span class="district-managers__container--title">Deputy Manager</span>';
+
+                    data.forEach((manager) => {
+                        if (manager.field_contact_position === (selectedPosition + '')) {
+                            managersHtml += `
                         <div class="district-managers__container--row">
                            <a href="${learnMoreLinksList}">
                           <div class="district-managers__container--row__image"> 
@@ -179,66 +182,67 @@ export default class Panel {
                         </ul>
                         </div>
                         </a>`;
-                        atLeastOne = true;
+                            atLeastOne = true;
+                        }
+                        //console.log("manager"+ manager.field_contact_position === (selectedPosition + ''));
+                    });
+                    managersHtml += '</div>';
+                    if (atLeastOne) {
+                        document.getElementsByClassName('deputy-managers')[0].innerHTML = managersHtml;
                     }
-                    //console.log("manager"+ manager.field_contact_position === (selectedPosition + ''));
-                });
-                managersHtml += '</div>';
-                if(atLeastOne) {
-                    document.getElementsByClassName('deputy-managers')[0].innerHTML = managersHtml;
                 }
-            }
-        }).catch((error) => console.error(error))
- // Note: inspectors for enforcers
- fetch('https://detroitmi.gov/rest/district-inspectors?_format=json')
- .then(resp => resp.json())
- .then((data) =>{
-            if(data && data.length) {
-                let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span><a>'
-                let atLeastOne = false;
-                data.forEach((inspector) => {
-                    if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
-                        atLeastOne = true;
-                        inspectorsHtml += `
-                        <div class="district-managers__container--row">
-                        <a href="${learnMoreLinksList}">
-                        <div class="district-managers__container--row__image"> </div>
-                        <div class="district-managers__container--row__name"> 
-                        <ul>
-                        <li>${inspector.title}</li>
-                        <li>${inspector.field_telephone}</li>
-                        </ul>
-                        </div>
-                        </a>`;
-                    }                    
-                });
-                inspectorsHtml += '</a>'+'</div>';
-                if(atLeastOne) {
-                    document.getElementsByClassName('district-inspectors')[0].innerHtml =inspectorsHtml;
-                   
+            }).catch((error) => console.error(error))
+        // Note: inspectors for enforcers
+
+        fetch('https://detroitmi.gov/rest/district-inspectors?_format=json')
+            .then(resp => resp.json())
+            .then((data) => {
+                if (data && data.length) {
+                    //   console.log("inspector data"+data)
+                    let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span><a>'
+                    let atLeastOne = false;
+                    data.forEach((inspector) => {
+                        if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
+                            atLeastOne = true;
+                            inspectorsHtml += `
+                <div class="district-managers__container--row">
+                <a href="${learnMoreLinksList}">
+                <div class="district-managers__container--row__image"> </div>
+                <div class="district-managers__container--row__name"> 
+                <ul>
+                <li>${inspector.title}</li>
+                <li>${inspector.field_telephone}</li>
+                </ul>
+                </div>
+                </a>`;
+                        }
+                    });
+                    inspectorsHtml += '</a>' + '</div>';
+                    if (atLeastOne) {
+                        document.getElementsByClassName('district-inspectors')[0].innerHTML = inspectorsHtml;
+                    }
                 }
-            }
-        }).catch((error) => console.error(error))
+            }).catch((error) => console.error(error));
 
         fetch('https://detroitmi.gov/rest/council-members?_format=json')
-        .then(resp => resp.json())
-        .then((data) =>{
-              // console.log(data);
-               if(data && data.length) {
-                 //  console.log(data.length);
-                const selectedDistrictId = districtsMap[selectedDistrictName];
-            //    console.log('idcheck'+ districtsMap[selectedDistrictName] );
-                let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
-               // console.log(councilMembersHtml);
-                let atLeastOne = false;
-                const uniqueNames = {}
-                data.forEach((member) => {
-                    if(member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
-    
-                //        console.log(member.selectedDistrictId + member.field_organization_head_name )
-                        uniqueNames[member.field_organization_head_name && member.field_image] = true;
-                        atLeastOne = true;
-                        councilMembersHtml += `<div class="council-members__container--row ">
+            .then(resp => resp.json())
+            .then((data) => {
+                //console.log("council"+ data);
+                if (data && data.length) {
+                    //  console.log(data.length);
+                    const selectedDistrictId = districtsMap[selectedDistrictName];
+                    //  console.log('idcheck'+ districtsMap[selectedDistrictName] );
+                    let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
+                    // console.log(councilMembersHtml);
+                    let atLeastOne = false;
+                    const uniqueNames = {}
+                    data.forEach((member) => {
+                        if (member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
+
+                            // console.log(member.selectedDistrictId + member.field_organization_head_name )
+                            uniqueNames[member.field_organization_head_name && member.field_image] = true;
+                            atLeastOne = true;
+                            councilMembersHtml += `<div class="council-members__container--row ">
                         <a href="${learnMoreLinksList}">
                         <div class="council-members__container--row__image "> 
                         <img class="member-image" src = "${member.field_image}"></div>
@@ -249,14 +253,14 @@ export default class Panel {
                         </div>
                         </a>
                         </div>`;
+                        }
+                    });
+                    councilMembersHtml += '</div>';
+                    if (atLeastOne) {
+                        document.getElementsByClassName('council-members')[0].innerHTML = councilMembersHtml;
                     }
-                });
-                councilMembersHtml += '</div>';
-                if(atLeastOne) {
-                    document.getElementsByClassName('council-members')[0].innerHTML=councilMembersHtml;
                 }
-            }
-        }).catch((error) => console.error(error))
-       return html;
-   }
+            }).catch((error) => console.error(error))
+        return html;
+    }
 }

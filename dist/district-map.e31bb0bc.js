@@ -36052,7 +36052,8 @@ class Panel {
         <p>${doYouKnowsList}</p>
     </div>
     <div class="content-section__LearnMoreButton">
-        <button><a href="${learnMoreLinksList}"> Learn More</a>
+        <button>
+        <a href="${learnMoreLinksList}">Learn More</a>
         </button>
     </div>
         `; //APIs
@@ -36126,36 +36127,37 @@ class Panel {
 
     fetch('https://detroitmi.gov/rest/district-inspectors?_format=json').then(resp => resp.json()).then(data => {
       if (data && data.length) {
+        //   console.log("inspector data"+data)
         let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span><a>';
         let atLeastOne = false;
         data.forEach(inspector => {
           if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
             atLeastOne = true;
             inspectorsHtml += `
-                        <div class="district-managers__container--row">
-                        <a href="${learnMoreLinksList}">
-                        <div class="district-managers__container--row__image"> </div>
-                        <div class="district-managers__container--row__name"> 
-                        <ul>
-                        <li>${inspector.title}</li>
-                        <li>${inspector.field_telephone}</li>
-                        </ul>
-                        </div>
-                        </a>`;
+                <div class="district-managers__container--row">
+                <a href="${learnMoreLinksList}">
+                <div class="district-managers__container--row__image"> </div>
+                <div class="district-managers__container--row__name"> 
+                <ul>
+                <li>${inspector.title}</li>
+                <li>${inspector.field_telephone}</li>
+                </ul>
+                </div>
+                </a>`;
           }
         });
         inspectorsHtml += '</a>' + '</div>';
 
         if (atLeastOne) {
-          document.getElementsByClassName('district-inspectors')[0].innerHtml = inspectorsHtml;
+          document.getElementsByClassName('district-inspectors')[0].innerHTML = inspectorsHtml;
         }
       }
     }).catch(error => console.error(error));
     fetch('https://detroitmi.gov/rest/council-members?_format=json').then(resp => resp.json()).then(data => {
-      // console.log(data);
+      //console.log("council"+ data);
       if (data && data.length) {
         //  console.log(data.length);
-        const selectedDistrictId = districtsMap[selectedDistrictName]; //    console.log('idcheck'+ districtsMap[selectedDistrictName] );
+        const selectedDistrictId = districtsMap[selectedDistrictName]; //  console.log('idcheck'+ districtsMap[selectedDistrictName] );
 
         let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>'; // console.log(councilMembersHtml);
 
@@ -36163,7 +36165,7 @@ class Panel {
         const uniqueNames = {};
         data.forEach(member => {
           if (member.tid === selectedDistrictId + '' && !uniqueNames[member.field_organization_head_name && member.field_image]) {
-            //        console.log(member.selectedDistrictId + member.field_organization_head_name )
+            // console.log(member.selectedDistrictId + member.field_organization_head_name )
             uniqueNames[member.field_organization_head_name && member.field_image] = true;
             atLeastOne = true;
             councilMembersHtml += `<div class="council-members__container--row ">
@@ -36607,7 +36609,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53230" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54578" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

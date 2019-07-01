@@ -1,4 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,700,900');
+//==============Font awesome icons ============================
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+$rocket-icon: '\f135';
+@mixin fontawesome-icon {
+	font-family: FontAwesome;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+
+//==============font awesome icons Ends================================
+
 @import "radio.scss";
 @import "loader.scss";
 $base-duration: 500ms;
@@ -124,6 +137,7 @@ main.hidden{
   top: 100vh;
   transition: all $base-duration ease;
 }
+
 //================grid ========================
 $grid__bp--md: 768;
 $grid__cols: 12;
@@ -169,9 +183,6 @@ $grid__cols: 12;
     }
   }
 }
-
-
-
 
 //=====================end of grid =====================
 
@@ -231,6 +242,10 @@ main {
 				margin: auto;
   			  width: 5em;
 			}
+			li{
+				padding: 2px;
+				display: block;
+			}
 			h2{
 				text-align: center;
 			}
@@ -250,27 +265,16 @@ main {
 				p{
 					padding: 3%;
 				}
-				.icon::before {
-					display: inline-block;
-					font-style: normal;
-					font-variant: normal;
-					text-rendering: auto;
-					-webkit-font-smoothing: antialiased;
-				  }
 				.header-icon::before{
-					font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f135";
-
+					@include fontawesome-icon();
+					color:#009581;
+					content: $rocket-icon;
+					margin-right: 10px;
 				}
 
 			}
-			li{
-				padding: 2px;
-				display: block;
-			}
+		
 			.members-information{
-				.container{
-					
-				}
 				.council-members{
 					padding-bottom: 0.9em;
 				    
