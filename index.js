@@ -1,4 +1,5 @@
 import Controller from './components/controller.class';
+import mapboxgl from 'mapbox-gl';
 
 (function start() {
   const person = require('./img/man.png');
@@ -56,31 +57,38 @@ import Controller from './components/controller.class';
         layers: ['schools']
       });
       if (features.length) {
-        controller.updatePanel(features[0], controller);
+        console.log(features[0]);
+        // controller.updatePanel(features[0], controller);
+        new mapboxgl.Popup()
+        .setLngLat([e.lngLat.lng, e.lngLat.lat])
+        .setHTML(features[0].properties.School_Nam)
+        .addTo(controller.map.map);
       } else {
         features = this.queryRenderedFeatures(e.point, {
           layers: ['libraries']
         });
         if (features.length) {
+          console.log(features[0]);
           controller.updatePanel(features[0], controller);
         } else {
           features = this.queryRenderedFeatures(e.point, {
             layers: ['parks']
           });
+          console.log(features[0]);
         }
       }
     }
     document.querySelector('.data-panel').className = 'data-panel active';
   });
-  controller.map.geocoder.on('result', function (ev) {
-    //console.log(ev);
-    if(controller.geocoderOff){
-      controller.geocoderOff = false;
-      controller.geoResults(ev, controller);
-    }else{
-      //console.log('extra call');
-    }
-  });
+  // controller.map.geocoder.on('result', function (ev) {
+  //   //console.log(ev);
+  //   if(controller.geocoderOff){
+  //     controller.geocoderOff = false;
+  //     controller.geoResults(ev, controller);
+  //   }else{
+  //     //console.log('extra call');
+  //   }
+  // });
   controller.map.map.loadImage(person, function(error, image) {
     if (error) throw error;
     controller.map.map.addImage('person', image);

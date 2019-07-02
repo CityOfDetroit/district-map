@@ -3,12 +3,12 @@ import Map from './map.class.js';
 import Panel from './panel.class.js';
 export default class Controller {
   constructor(container) {
-    this.geocoderOff = true;
+    this.geocoderOff = false;
     this.scoutVolunteers = null;
     this.map = new Map({
       styleURL: 'mapbox://styles/mapbox',
       mapContainer: 'map',
-      geocoder: true,
+      geocoder: false,
       baseLayers: {
         street: 'streets-v10',
         satellite: 'cj774gftq3bwr2so2y6nqzvz4'
