@@ -23,6 +23,7 @@ export default class Panel {
         const imageUrl = "http://detroitmi.gov/";
         const memberUrl = "https://detroitmi.gov/departments/department-neighborhoods/";
         const councilUrl = "https://detroitmi.gov/government/city-council/";
+        const newsletterUrl = "https://detroitmi.gov/departments/department-neighborhoods/";
         const districtsMap = {
             'district 1': 1276,
             'district 2': 1476,
@@ -96,12 +97,22 @@ export default class Panel {
             'district 6': councilUrl + "city-council-district-6",
             'district 7': councilUrl + "city-council-district-7",
         }
+        const newsletterLinks = {
+            'district 1': memberUrl + "district-1#documents-block",
+            'district 2': memberUrl + "district-2#documents-block",
+            'district 3': memberUrl + "district-3#documents-block",
+            'district 4': memberUrl + "district-4#documents-block",
+            'district 5': memberUrl + "district-5#documents-block",
+            'district 6': memberUrl + "district-6#documents-block",
+            'district 7': memberUrl + "district-7#documents-block",
+        }
         const selectedDistrictName = selectedDistrict.properties.name.toLowerCase();
         const districtDescriptionSection = districtDescription[selectedDistrictName];
         const doYouKnowsList = doYouKnows[selectedDistrictName];
         const learnMoreLinksList = learnMoreLinks[selectedDistrictName];
         const memberlinkList = memberLinks[selectedDistrictName];
         const councillinkList = councilLinks[selectedDistrictName];
+        const newsletterLinksList = newsletterLinks[selectedDistrictName];
 
         //console.log("selectedDistrict"+ selectedDistrict.properties.name.toLowerCase() )
 
@@ -136,20 +147,23 @@ export default class Panel {
             </li>
             </ul>
             </div>
-    <div class="doYouKnows">
-    <article class="fun-fact-logo">
-     <span class="fa fa-rocket"></span>
-      </article>
-      <article class="text-container">
-      <h3>DID YOU KNOW?</h3>
-      <p>${doYouKnowsList}</p>
-      </article>
-    </div>
-    <div class="content-section__LearnMoreButton">
-        <button>
-        <a href="${learnMoreLinksList}">Learn More</a>
-        </button>
-    </div>
+            <div class="doYouKnows">
+            <article class="fun-fact-logo">
+            <span class="fa fa-rocket"></span>
+            </article>
+            <article class="text-container">
+            <h3>DID YOU KNOW?</h3>
+            <p>${doYouKnowsList}</p>
+            </article>
+            </div>
+            <div class="content-section__LearnMoreButton">
+                <button>
+                <a href="${newsletterLinksList}">Read Newsletter</a>
+                </button>
+                <button>
+                <a href="${learnMoreLinksList}">Learn More</a>
+                </button>
+            </div>
         `;
         //APIs
         // https://detroitmi.gov/rest/district-managers?_format=json
@@ -221,32 +235,30 @@ export default class Panel {
                     }
                 }
             }).catch((error) => console.error(error))
-        // Note: inspectors for enforcers
-
+        
+            // Note: inspectors for enforcers
         fetch('https://detroitmi.gov/rest/district-inspectors?_format=json')
             .then(resp => resp.json())
             .then((data) => {
                 if (data && data.length) {
                     //   console.log("inspector data"+data)
-                    let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span><a>'
+                    let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span>'
                     let atLeastOne = false;
                     data.forEach((inspector) => {
                         if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
                             atLeastOne = true;
                             inspectorsHtml += `
                 <div class="district-managers__container--row">
-                <a href="${memberlinkList}">
                 <div class="district-managers__container--row__image"> </div>
                 <div class="district-managers__container--row__name"> 
                 <ul>
                 <li>${inspector.title}</li>
                 <li>${inspector.field_telephone}</li>
                 </ul>
-                </div>
-                </a>`;
+                </div>`;
                         }
                     });
-                    inspectorsHtml += '</a>' + '</div>';
+                    inspectorsHtml += '</div>';
                     if (atLeastOne) {
                         document.getElementsByClassName('district-inspectors')[0].innerHTML = inspectorsHtml;
                     }
