@@ -265,15 +265,25 @@ main {
 				p{
 					padding: 3%;
 				}
-				.header-icon::before{
-					@include fontawesome-icon();
-					color:#009581;
-					content: $rocket-icon;
-					margin-right: 10px;
-				}
-
+				.fun-fact-logo{
+					position: absolute;
+					top: -1.5em;
+					left: -1.5em;
+					display: flex;
+					width: 3em;
+					height: 3em;
+					background-color: #009581;
+					border-radius: 50%;
+					color: #fff;
+					span{
+						font-size: 1.5em;
+  					  padding: .4em .5em;
+						}
+					}
+					.text-container{
+						padding-left: 20px;
+					}
 			}
-		
 			.members-information{
 				.council-members{
 					padding-bottom: 0.9em;

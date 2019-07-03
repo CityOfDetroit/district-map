@@ -21,6 +21,7 @@ export default class Panel {
     buildMarkUp(selectedDistrict) {
         const districtUrl = "http://theneighborhoods.org/districts/";
         const imageUrl = "http://detroitmi.gov/";
+        const memberUrl = "https://detroitmi.gov/departments/department-neighborhoods/";
         const districtsMap = {
             'district 1': 1276,
             'district 2': 1476,
@@ -76,10 +77,20 @@ export default class Panel {
             'district 6': districtUrl + "district-6",
             'district 7': districtUrl + "district-7",
         }
+        const memberLinks={
+            'district 1': memberUrl + "district-1",
+            'district 2': memberUrl + "district-2",
+            'district 3': memberUrl + "district-3",
+            'district 4': memberUrl + "district-4",
+            'district 5': memberUrl + "district-5",
+            'district 6': memberUrl + "district-6",
+            'district 7': memberUrl + "district-7",
+        }
         const selectedDistrictName = selectedDistrict.properties.name.toLowerCase();
         const districtDescriptionSection = districtDescription[selectedDistrictName];
         const doYouKnowsList = doYouKnows[selectedDistrictName];
         const learnMoreLinksList = learnMoreLinks[selectedDistrictName];
+        const memberlinkList = memberLinks[selectedDistrictName];
 
         //console.log("selectedDistrict"+ selectedDistrict.properties.name.toLowerCase() )
 
@@ -115,8 +126,13 @@ export default class Panel {
             </ul>
             </div>
     <div class="doYouKnows">
-        <h3 class="icon header-icon">DID YOU KNOW?</h3>
-        <p>${doYouKnowsList}</p>
+    <article class="fun-fact-logo">
+     <span class="fa fa-rocket"></span>
+      </article>
+      <article class="text-container">
+      <h3>DID YOU KNOW?</h3>
+      <p>${doYouKnowsList}</p>
+      </article>
     </div>
     <div class="content-section__LearnMoreButton">
         <button>
@@ -143,7 +159,7 @@ export default class Panel {
                         if (districtManager.field_contact_position === (districtManagerPosition + '')) {
                             DistrictManager +=
                                 `<div class="district-managers__container--row ">
-                         <a href="${learnMoreLinksList}">
+                         <a href="${memberlinkList}">
                          <div class="district-managers__container--row__image"> 
                          <img class="member-image" src = "http://detroitmi.gov/${districtManager.field_portrait}"></div>
                          <div class="district-managers__container--row__name">
@@ -174,7 +190,7 @@ export default class Panel {
                         if (manager.field_contact_position === (selectedPosition + '')) {
                             managersHtml += `
                         <div class="district-managers__container--row">
-                           <a href="${learnMoreLinksList}">
+                           <a href="${memberlinkList}">
                           <div class="district-managers__container--row__image"> 
                               <img class="member-image" src = "http://detroitmi.gov/${manager.field_portrait}"></div>
                           <div class="district-managers__container--row__name "> <ul>
@@ -208,7 +224,7 @@ export default class Panel {
                             atLeastOne = true;
                             inspectorsHtml += `
                 <div class="district-managers__container--row">
-                <a href="${learnMoreLinksList}">
+                <a href="${memberlinkList}">
                 <div class="district-managers__container--row__image"> </div>
                 <div class="district-managers__container--row__name"> 
                 <ul>
@@ -245,7 +261,7 @@ export default class Panel {
                             uniqueNames[member.field_organization_head_name && member.field_image] = true;
                             atLeastOne = true;
                             councilMembersHtml += `<div class="council-members__container--row ">
-                        <a href="${learnMoreLinksList}">
+                        <a href="${memberlinkList}">
                         <div class="council-members__container--row__image "> 
                         <img class="member-image" src = "http://detroitmi.gov/${member.field_image}"></div>
                         <div class="council-members__container--row__name ">
