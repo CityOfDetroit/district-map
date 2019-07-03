@@ -22,6 +22,7 @@ export default class Panel {
         const districtUrl = "http://theneighborhoods.org/districts/";
         const imageUrl = "http://detroitmi.gov/";
         const memberUrl = "https://detroitmi.gov/departments/department-neighborhoods/";
+        const councilUrl = "https://detroitmi.gov/government/city-council/";
         const districtsMap = {
             'district 1': 1276,
             'district 2': 1476,
@@ -86,11 +87,21 @@ export default class Panel {
             'district 6': memberUrl + "district-6",
             'district 7': memberUrl + "district-7",
         }
+        const councilLinks={
+            'district 1': councilUrl + "city-council-district-1",
+            'district 2': councilUrl + "city-council-district-2",
+            'district 3': councilUrl + "city-council-district-3",
+            'district 4': councilUrl + "city-council-district-4",
+            'district 5': councilUrl + "city-council-district-5",
+            'district 6': councilUrl + "city-council-district-6",
+            'district 7': councilUrl + "city-council-district-7",
+        }
         const selectedDistrictName = selectedDistrict.properties.name.toLowerCase();
         const districtDescriptionSection = districtDescription[selectedDistrictName];
         const doYouKnowsList = doYouKnows[selectedDistrictName];
         const learnMoreLinksList = learnMoreLinks[selectedDistrictName];
         const memberlinkList = memberLinks[selectedDistrictName];
+        const councillinkList = councilLinks[selectedDistrictName];
 
         //console.log("selectedDistrict"+ selectedDistrict.properties.name.toLowerCase() )
 
@@ -261,7 +272,7 @@ export default class Panel {
                             uniqueNames[member.field_organization_head_name && member.field_image] = true;
                             atLeastOne = true;
                             councilMembersHtml += `<div class="council-members__container--row ">
-                        <a href="${memberlinkList}">
+                        <a href="${councillinkList}">
                         <div class="council-members__container--row__image "> 
                         <img class="member-image" src = "http://detroitmi.gov/${member.field_image}"></div>
                         <div class="council-members__container--row__name ">
