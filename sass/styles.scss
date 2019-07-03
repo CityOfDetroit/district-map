@@ -209,11 +209,11 @@ $grid__cols: 12;
 	padding: 3%;
 }
 %containerImage{
-	left: -6%;
-    /* max-width: 18%; */
+	left: -15%;
     position: absolute;
     border-radius: 50%;
-    bottom: 1px;
+    bottom: 0px;
+    width: 80px;
 }
 
 main {
