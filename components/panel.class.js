@@ -19,6 +19,8 @@ export default class Panel {
     }
 
     buildMarkUp(selectedDistrict) {
+        const districtUrl = "http://theneighborhoods.org/districts/";
+        const imageUrl = "http://detroitmi.gov/";
         const districtsMap = {
             'district 1': 1276,
             'district 2': 1476,
@@ -66,13 +68,13 @@ export default class Panel {
             'district 7': "Did you know Aviation Sub is named because an old airfield, where Henry Ford once flew private planes, was once there?",
         }
         const learnMoreLinks = {
-            'district 1': "http://theneighborhoods.org/districts/district-1",
-            'district 2': "http://theneighborhoods.org/districts/district-2",
-            'district 3': "http://theneighborhoods.org/districts/district-3",
-            'district 4': "http://theneighborhoods.org/districts/district-4",
-            'district 5': "http://theneighborhoods.org/districts/district-5",
-            'district 6': "http://theneighborhoods.org/districts/district-6",
-            'district 7': "http://theneighborhoods.org/districts/district-7",
+            'district 1': districtUrl + "district-1",
+            'district 2': districtUrl + "district-2",
+            'district 3': districtUrl + "district-3",
+            'district 4': districtUrl + "district-4",
+            'district 5': districtUrl + "district-5",
+            'district 6': districtUrl + "district-6",
+            'district 7': districtUrl + "district-7",
         }
         const selectedDistrictName = selectedDistrict.properties.name.toLowerCase();
         const districtDescriptionSection = districtDescription[selectedDistrictName];
@@ -143,7 +145,7 @@ export default class Panel {
                                 `<div class="district-managers__container--row ">
                          <a href="${learnMoreLinksList}">
                          <div class="district-managers__container--row__image"> 
-                         <img class="member-image" src = "${districtManager.field_portrait}"></div>
+                         <img class="member-image" src = "http://detroitmi.gov/${districtManager.field_portrait}"></div>
                          <div class="district-managers__container--row__name">
                           <ul>
                          <li>${districtManager.title}</li>
@@ -174,7 +176,7 @@ export default class Panel {
                         <div class="district-managers__container--row">
                            <a href="${learnMoreLinksList}">
                           <div class="district-managers__container--row__image"> 
-                              <img class="member-image" src = "${manager.field_portrait}"></div>
+                              <img class="member-image" src = "http://detroitmi.gov/${manager.field_portrait}"></div>
                           <div class="district-managers__container--row__name "> <ul>
                         <li>${manager.title}</li>
                         <li>${manager.field_telephone}</li>
@@ -245,7 +247,7 @@ export default class Panel {
                             councilMembersHtml += `<div class="council-members__container--row ">
                         <a href="${learnMoreLinksList}">
                         <div class="council-members__container--row__image "> 
-                        <img class="member-image" src = "${member.field_image}"></div>
+                        <img class="member-image" src = "http://detroitmi.gov/${member.field_image}"></div>
                         <div class="council-members__container--row__name ">
                         <ul>
                         <li>${member.field_organization_head_name}</li>
