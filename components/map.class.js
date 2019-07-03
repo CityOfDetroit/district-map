@@ -56,7 +56,7 @@ export default class Map {
     sourcePromise.then(function(val){
       val.loadLayers(val);
     }).catch(function(e){
-      console.log("Error:" + e);
+      //console.log("Error:" + e);
     });
   }
   loadSources() {
@@ -73,7 +73,7 @@ export default class Map {
       }
       return true;
     } catch (e) {
-      console.log("Error:" + e);
+      //console.log("Error:" + e);
       return false;
     }
   }
@@ -107,7 +107,7 @@ export default class Map {
             }
         }
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }
     }
   }
@@ -121,7 +121,7 @@ export default class Map {
             }
         }
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }
     }
   }

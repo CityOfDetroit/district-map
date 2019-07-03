@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Interactive District Map | City of Detroit</title>
@@ -7,13 +8,15 @@
   <meta name="author" content="Edgar Montes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   <!--build:css css/styles.min.css-->
-  <link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
+  <link rel="shortcut icon" type="image/png" href="img/favicon.ico" />
   <link href="./node_modules/mapbox-gl/dist/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="./node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css" type="text/css" />
   <link href="sass/styles.scss" rel="stylesheet" />
   <!--endbuild-->
 </head>
+
 <body>
+   
   <section id="alert-overlay" class="">
     <article>
       <span class="close">x</span>
@@ -34,10 +37,28 @@
     <section class="map-panel">
       <article id="map">
       </article>
+      <article id="map-overlay">
+        <div class="map-overlay-inner">
+          <nav class="legend"> 
+            <ul class="bar">
+            </ul>
+            <div class="container">
+              <div class="container__row">
+                <label class="container__col-md-3 container__col-sm-3">Historic Dist.</label>
+                <label class="container__col-md-3 container__col-sm-3">School</label>
+                <label class="container__col-md-3 container__col-sm-3">Park</label> 
+                <label class="container__col-md-3 container__col-sm-3">Library</label> 
+              </div>
+            </div>
+            </nav>
+        </div>
+      </article>
       <article id="geocoder">
       </article>
     </section>
   </main>
   <script type="module" src="index.js"></script>
+  <script src='//d3js.org/d3.v3.min.js' charset='utf-8'></script>
 </body>
+
 </html>
