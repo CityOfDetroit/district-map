@@ -125,27 +125,29 @@ export default class Panel {
     <div class="members-information">
         <div class="container">
         <ul class="container__row">
-        <li class="council-members container__col-sm-12 container__col-md-6"></li>
+        <li class="council-members"></li>
         <li></li>
         </ul>
         </div>
         <div class="container">
         <ul class="container__row">
-            <li class="district-managers container__col-sm-12 container__col-md-6"></li>
-            <li class="deputy-managers container__col-sm-12 container__col-md-6"></li>
+            <li class="district-managers"></li>
+            <li class="deputy-managers"></li>
         </ul>
         </div>
         <div class="container">
         <ul class="container__row">
-            <li class="district-inspectors container__col-sm-12 container__col-md-6"></li>
-            <li class="nfos-police district-managers__container container__col-sm-12 container__col-md-6">
-                <div class="district-managers__container--title">
+            <li class="district-inspectors"></li>
+            <li class="nfos-police ">
+            <div class="nfos-police__container">
+                <div class="nfos-police__container--title">
                     NFOS
                 </div>
                 <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
                         of police officers</a></p>
+             </div>
             </li>
-            </ul>
+        </ul>
             </div>
             <div class="doYouKnows">
             <article class="fun-fact-logo">
