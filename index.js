@@ -28,7 +28,9 @@ import mapboxgl from 'mapbox-gl';
             features = this.queryRenderedFeatures(e.point, {
               layers: ['neighborhood-fill']
             });
+            if (features.length) {
             this.setFilter('neighborhood-hover', ['==', 'OBJECTID', features[0].properties.OBJECTID]);
+            }
           }
         }
       }
@@ -57,6 +59,7 @@ import mapboxgl from 'mapbox-gl';
           return t;
         }
       });
+      document.querySelector('.data-panel').className = 'data-panel active';
       controller.updatePanel(features[0], controller);
     } else {
       features = this.queryRenderedFeatures(e.point, {
@@ -134,7 +137,6 @@ import mapboxgl from 'mapbox-gl';
         }
       }
     }
-    document.querySelector('.data-panel').className = 'data-panel active';
   });
   // controller.map.geocoder.on('result', function (ev) {
   //   //console.log(ev);
