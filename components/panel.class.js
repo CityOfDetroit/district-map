@@ -117,38 +117,42 @@ export default class Panel {
         //console.log("selectedDistrict"+ selectedDistrict.properties.name.toLowerCase() )
 
         let html = `
-        <div class="content-section__logo">
-        <img src="http://detroitmi.gov/sites/default/files/inline-images/logo-220x220_0.jpg">
-    </div>
     <h2>${selectedDistrictName.toUpperCase()}</h2>
     <p>${districtDescriptionSection}</p>
     <div class="members-information">
-        <div class="container">
-        <ul class="container__row">
-        <li class="council-members"></li>
-        <li></li>
+     <div class="container">
+        <ul class="row">
+        <li class="  grid-container col-sm-12 col-md-6">
+             <p class="council-members"></p>
+            </li>
+
         </ul>
-        </div>
-        <div class="container">
-        <ul class="container__row">
-            <li class="district-managers"></li>
-            <li class="deputy-managers"></li>
+       
+        <ul class="row">
+            <li class="grid-container col-sm-12 col-md-6 ">
+            <p class="district-managers"></p>
+             </li>
+            <li class="grid-container col-sm-12 col-md-6 ">
+            <p class="deputy-managers"></p></li>
         </ul>
-        </div>
-        <div class="container">
-        <ul class="container__row">
-            <li class="district-inspectors"></li>
-            <li class="nfos-police ">
-            <div class="nfos-police__container">
-                <div class="nfos-police__container--title">
-                    NFOS
-                </div>
-                <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
-                        of police officers</a></p>
-             </div>
+     
+        <ul class="row">
+            <li class="grid-container col-sm-12 col-md-6">
+            <div class="district-inspectors"></div>
+             </li>
+            <li class="grid-container col-sm-12 col-md-6">
+              <div class="nfos-police">
+                 <div class="nfos-police__container">
+                     <div class="nfos-police__container--title">
+                      NFOS
+                 </div>
+                 <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
+                    of police officers</a></p>
+               </div>
+              </div>
             </li>
         </ul>
-            </div>
+        </div>  
             <div class="doYouKnows">
             <article class="fun-fact-logo">
             <span class="fa fa-rocket"></span>
@@ -166,6 +170,7 @@ export default class Panel {
                 <a href="${learnMoreLinksList}">Learn More</a>
                 </button>
             </div>
+            
         `;
         //APIs
         // https://detroitmi.gov/rest/district-managers?_format=json
@@ -254,7 +259,7 @@ export default class Panel {
                 <div class="district-managers__container--row__image"> </div>
                 <div class="district-managers__container--row__name"> 
                 <ul>
-                <li>${inspector.title}</li>
+                <li>${inspector.title}</li><br>
                 <li>${inspector.field_telephone}</li>
                 </ul>
                 </div>`;

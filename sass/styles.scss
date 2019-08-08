@@ -103,7 +103,7 @@ img{width: 100%;}
 
 
 // ====================== mobile end ========================
-@media all and (min-width: 401px) {
+@media all and (min-width: 101px) {
 	button{
 		border: none;
 		background-color: $color-2;
@@ -129,40 +129,51 @@ main.hidden{
 }
 
 //================grid ========================
-$grid__bp--md: 768;
-$grid__cols: 12;
+// $grid__bp--md: 468;
+// $grid__cols: 12;
 
-.container {
-	box-sizing: border-box;
-//   max-width: $grid__bp--md * 1px;
-  margin: 0 auto;
-  &--fluid {
-    margin: 0;
-    max-width: 100%;
-  }
-  &__row {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  @at-root {
-    [class*='container__col-'] {
-      justify-content: space-around;
-    }
-  @for $i from 1 through $grid__cols {
-    &__col-sm-#{$i} {
-      flex-basis: (100 / ($grid__cols / $i) ) * 1%;
-    }
-  }
-  @media screen and (min-width: $grid__bp--md * 1px) {
-    @for $i from 1 through $grid__cols {
-      &__col-md-#{$i} {
-        flex-basis: (100 / ($grid__cols / $i) ) * 1%;
-      }
-    }
-  }
-}
-}
+// .container {
+// 	max-width: $grid__bp--md * 1px;
+// 	margin: 0 auto;
+// 	&--fluid {
+// 		margin: 0;
+// 		max-width: 100%;
+// 	}
+// 	&__row {
+// 		display: flex;
+// 		flex-wrap: wrap;
+// 		width: 100%;
+// 	}
+// 	@for $i from 1 through $grid__cols {
+// 		&__col-sm-#{$i} {
+// 			flex-basis: (100 / ($grid__cols / $i) ) * 1%;
+// 		}
+// 	}
+// 	@media screen and (min-width: $grid__bp--md * 1px) {
+// 		@for $i from 1 through $grid__cols {
+// 			&__col-md-#{$i} {
+// 				flex-basis: (100 / ($grid__cols / $i) ) * 1%;
+// 			}
+// 		}
+// 	}
+// }
+
+// //Styling of grid for demostration purposes
+// .container {
+// 	&__row {
+// 	}
+// 	@at-root {
+// 		[class*='container__col-'] {
+// 			width: 150px;
+// 			height: 30px;
+// 			margin: 10px 0;
+// 			display: flex;
+// 			align-items: center;
+// 			justify-content: space-around;
+// 		}
+// 	}
+// }
+
 
 //=====================end of grid =====================
 $min-width: 230px;
@@ -185,8 +196,7 @@ $min-width: 230px;
 	 left: 4em;
 }
 %containerRowName{
-	
-	padding: 3%;
+	padding: 5px 5px 0px;
 }
 %containerImage{
 	left: -15%;
@@ -215,16 +225,13 @@ main {
 		transition: all .2s ease-in-out;
 		//================ Sidebar members information===========
 		.content-section{
-			&__logo{
-				text-align: center;
-			}
-			img{
-				margin: auto;
-  			  width: 5em;
-			}
+			//img{
+			//	margin: auto;
+  			//  width: 5em;
+			//}
 			li{
 				padding: 2px;
-				display: block;
+				display: inline-flex;
 			}
 			h2{
 				text-align: center;
@@ -244,6 +251,7 @@ main {
 				padding-bottom: 0.9em;
 				@extend %memberContainer;
 				p{
+					font-size: 16px;
 					padding: 3%;
 				}
 				.fun-fact-logo{
@@ -258,96 +266,105 @@ main {
 					color:$white;
 					span{
 						font-size: 1.5em;
-  					  padding: .4em .5em;
+  					    padding: .4em .5em;
 						}
 					}
 					.text-container{
 						padding-left: 20px;
+						h3 {
+							font-size: 32px;
+							margin-top: 14px;
+						}
 					}
 			}
 			.members-information{
 				font-size: 15px;
-				.council-members{
-					width: $min-width;
-					padding-bottom: 0.9em;
-				    
-					&__container{
+				.grid-container{
+
+					.council-members{
+						min-height: 88px;
+						width: $min-width;
+						// padding-bottom: 0.9em;
 						
-						padding: 10px;
-						@extend %memberContainer;
-					
-						&--title{
-							@extend %containerTitle;
-						}
-						&--row{
-							a {
-								color: inherit;
-								text-decoration: none;
+						&__container{
+							
+							padding: 10px;
+							@extend %memberContainer;
+						
+							&--title{
+								@extend %containerTitle;
 							}
-							a:hover{
-								text-decoration: underline;
-							}
-
-							&__image{
-								img{
-									@extend %containerImage;
-
+							&--row{
+								a {
+									color: inherit;
+									text-decoration: none;
 								}
-							}
-							&__name{
-								@extend %containerRowName;
-								ul{
-									a{
-										li{
-											display: inline-block;
+								a:hover{
+									text-decoration: underline;
+								}
+	
+								&__image{
+									img{
+										@extend %containerImage;
+	
+									}
+								}
+								&__name{
+									@extend %containerRowName;
+									ul{
+										a{
+											li{
+												display: inline-block;
+											}
 										}
 									}
 								}
 							}
 						}
 					}
-				}
-				.district-managers{
-					width: $min-width;
-					padding-bottom: 0.9em;
-					&__container{
-						@extend %memberContainer;
-					
-						&--title{
-							@extend %containerTitle
-						}
-						&--row{
-							a {
-								color: inherit;
-								text-decoration: none;
+					.district-managers{
+						min-height: 88px;
+						width: $min-width;
+						// padding-bottom: 0.9em;
+						&__container{
+							@extend %memberContainer;
+						
+							&--title{
+								@extend %containerTitle
 							}
-							a:hover{
-								text-decoration: underline;
-							}
-
-							&__image{
-								img{
-									@extend %containerImage;
+							&--row{
+								a {
+									color: inherit;
+									text-decoration: none;
 								}
-							}
-							&__name{
-								@extend %containerRowName;
-
-								ul{
-									a{
-										li{
-											display: block;
+								a:hover{
+									text-decoration: underline;
+								}
+	
+								&__image{
+									img{
+										@extend %containerImage;
+									}
+								}
+								&__name{
+									@extend %containerRowName;
+	
+									ul{
+										a{
+											li{
+												display: block;
+											}
 										}
 									}
 								}
 							}
 						}
 					}
-				}
-				
+						
 				.district-inspectors{
+					min-height: 88px;
 					width: $min-width;
-					padding-bottom: 0.9em;
+					// padding-bottom: 0.9em;
 					&__container{
 						@extend %memberContainer;
 					
@@ -382,8 +399,9 @@ main {
 					}
 				}
 				.deputy-managers{
+					min-height: 88px;
 					width:$min-width;
-					padding-bottom: 0.9em;
+					// padding-bottom: 0.9em;
 					
 					&__container{
 						@extend %memberContainer;
@@ -410,7 +428,7 @@ main {
 								ul{
 									li{
 										display: block;
-										height: 50%;
+									
 									}
 								}
 							}
@@ -418,9 +436,11 @@ main {
 					}
 				}
 				.nfos-police{
-					height: 56px;
+					text-align: center;
+					min-height: 88px;
 					width: $min-width;
 					a {
+						
 						color: inherit;
 						text-decoration: none;
 					}
@@ -429,12 +449,15 @@ main {
 					}
 					
 					&__container{
+						text-align: center;
+  						  padding: 14px;
 						@extend %memberContainer;
 					
 						&--title{
 							@extend %containerTitle
 						}
 					}
+				}
 				}
 			}
 		}
@@ -618,6 +641,7 @@ main {
     }
 	}
 }
+
 // =========================Sidebar=====================================
 
 
