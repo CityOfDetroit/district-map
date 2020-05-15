@@ -1,38 +1,181 @@
 'use strict';
 
-import {
-    RSA_PKCS1_OAEP_PADDING
-} from 'constants';
-
-const moment = require('moment');
 export default class Panel {
     constructor(container) {
         this.container = container;
     }
 
-    buildPanel(data) {
-        this.container.innerHTML = this.buildMarkUp(data);
+    buildPanel(data, _controller) {
+        this.container.innerHTML = this.buildMarkUp(data, _controller);
     }
 
     clearPanel() {
         this.container.innerHTML = '';
     }
 
-    buildMarkUp(selectedDistrict) {
+    buildCouncil(district, _controller){
+        let tid = "";
+        let markup = "";
+        let count = 0;
+        switch (district.properties.districts) {
+            case "1":
+                tid = "1276";
+                break;
+
+            case "2":
+                tid = "1476";
+                break;
+
+            case "3":
+                tid = "1481";
+                break;
+
+            case "4":
+                tid = "1486";
+                break;
+
+            case "5":
+                tid = "1346";
+                break;
+
+            case "6":
+                tid = "1491";
+                break;
+
+            case "7":
+                tid = "1511";
+                break;
+        
+            default:
+                break;
+        }
+        _controller.districtData[0].data.forEach((member) => {
+            if (count < 1){
+                if (member.tid == tid) {
+                    console.log('found one');
+                    markup = `
+                    <div class="council-members__container">
+                        <span class="council-members__container--title">Council</span>
+                        <div class="council-members__container--row ">
+                        <div class="council-members__container--row__image "> 
+                            <img class="member-image" src = "http://detroitmi.gov/${member.field_image}"></div>
+                        <div class="council-members__container--row__name ">
+                            <ul>
+                                <li><a href="https://detroitmi.gov/taxonomy/term/${tid}">${member.field_organization_head_name}</a></li>
+                                <li>${member.field_phone}</li>
+                            </ul>
+                        </div>
+                    </div>`;
+                    console.log(markup);
+                    count++;
+                }
+            }
+        });
+        return markup;
+    }
+
+    buildManager(district, _controller){
+        let markup = "";
+        let count = 0;
+        _controller.districtData[1].data.forEach((member) => {
+            if (count < 1){
+                if (member.field_contact_position.includes(district.properties.districts) && member.field_contact_position.includes('Manager') && !member.field_contact_position.includes('Deputy')) {
+                    console.log('found one');
+                    markup = `
+                    <div class="district-managers__container">
+                        <span class="district-managers__container--title">District Manager</span>
+                        <div class="district-managers__container--row ">
+                         <div class="district-managers__container--row__image"> 
+                            <img class="member-image" src = "http://detroitmi.gov/${member.field_portrait}"></div>
+                         <div class="district-managers__container--row__name">
+                            <ul>
+                                <li><a href="https://detroitmi.gov/departments/department-neighborhoods/district-${district.properties.districts}">${member.title}</a></li>
+                                <li>${member.field_telephone}</li>
+                                <li>${member.field_email_address}</li>
+                            </ul>
+                         </div>
+                        </div>
+                        <br>
+                        <div class=""></div>
+                        <span></span>
+                    </div>`;
+                    count++;
+                }
+            }
+        });
+        return markup;
+    }
+
+    buildDeputy(district, _controller){
+        let markup = "";
+        let count = 0;
+        _controller.districtData[1].data.forEach((member) => {
+            if (count < 1){
+                if (member.field_contact_position.includes(district.properties.districts) && member.field_contact_position.includes('Manager') && member.field_contact_position.includes('Deputy')) {
+                    console.log('found one');
+                    markup = `
+                    <div class="district-managers__container">
+                        <span class="district-managers__container--title">District Manager</span>
+                        <div class="district-managers__container--row ">
+                         <div class="district-managers__container--row__image"> 
+                            <img class="member-image" src = "http://detroitmi.gov/${member.field_portrait}"></div>
+                         <div class="district-managers__container--row__name">
+                            <ul>
+                                <li><a href="https://detroitmi.gov/departments/department-neighborhoods/district-${district.properties.districts}">${member.title}</a></li>
+                                <li>${member.field_telephone}</li>
+                                <li>${member.field_email_address}</li>
+                            </ul>
+                         </div>
+                        </div>
+                        <br>
+                        <div class=""></div>
+                        <span></span>
+                    </div>`;
+                    count++;
+                }
+            }
+        });
+        return markup;
+    }
+
+
+    buildInspector(district, _controller){
+        let markup = "";
+        let count = 0;
+        _controller.districtData[2].data.forEach((member) => {
+            if (count < 1){
+                if (member.field_responsibilities.includes(district.properties.districts)) {
+                    console.log('found one');
+                    markup = `
+                    <div class="district-managers__container">
+                        <span class="district-managers__container--title">District Manager</span>
+                        <div class="district-managers__container--row ">
+                         <div class="district-managers__container--row__name">
+                            <ul>
+                                <li>${member.title}</li>
+                                <li>${member.field_telephone}</li>
+                            </ul>
+                         </div>
+                        </div>
+                        <br>
+                        <div class=""></div>
+                        <span></span>
+                    </div>`;
+                    count++;
+                }
+            }
+        });
+        return markup;
+    }
+
+    buildMarkUp(selectedDistrict, _controller) {
+        console.log(selectedDistrict);
         const districtUrl = "http://theneighborhoods.org/districts/";
         const imageUrl = "http://detroitmi.gov/";
         const memberUrl = "https://detroitmi.gov/departments/department-neighborhoods/";
         const councilUrl = "https://detroitmi.gov/government/city-council/";
         const newsletterUrl = "https://detroitmi.gov/departments/department-neighborhoods/";
-        const districtsMap = {
-            'district 1': 1276,
-            'district 2': 1476,
-            'district 3': 1481,
-            'district 4': 1486,
-            'district 5': 1346,
-            'district 6': 1491,
-            'district 7': 1511
-        };
+        
         const deputyManager = {
             'district 1': "District 1 Deputy Manager ",
             'district 2': "District 2 Deputy Manager ",
@@ -119,189 +262,54 @@ export default class Panel {
         let html = `
         <div class="content-section__logo">
         <img src="http://detroitmi.gov/sites/default/files/inline-images/logo-220x220_0.jpg">
-    </div>
-    <h2>${selectedDistrictName.toUpperCase()}</h2>
-    <p>${districtDescriptionSection}</p>
-    <div class="members-information">
-        <div class="container">
-        <ul class="container__row">
-        <li class="council-members container__col-sm-12 container__col-md-6"></li>
-        <li></li>
-        </ul>
         </div>
-        <div class="container">
-        <ul class="container__row">
-            <li class="district-managers container__col-sm-12 container__col-md-6"></li>
-            <li class="deputy-managers container__col-sm-12 container__col-md-6"></li>
-        </ul>
-        </div>
-        <div class="container">
-        <ul class="container__row">
-            <li class="district-inspectors container__col-sm-12 container__col-md-6"></li>
-            <li class="nfos-police district-managers__container container__col-sm-12 container__col-md-6">
-                <div class="district-managers__container--title">
-                    NFOS
-                </div>
-                <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
-                        of police officers</a></p>
+        <h2>${selectedDistrictName.toUpperCase()}</h2>
+        <p>${districtDescriptionSection}</p>
+        <div class="members-information">
+            <div class="container">
+            <ul class="container__row">
+            <li class="council-members container__col-sm-12 container__col-md-6">
+            ${this.buildCouncil(selectedDistrict, _controller)}
             </li>
+            <li></li>
             </ul>
             </div>
-            <div class="doYouKnows">
-            <article class="fun-fact-logo">
-            <span class="fa fa-rocket"></span>
-            </article>
-            <article class="text-container">
-            <h3>DID YOU KNOW?</h3>
-            <p>${doYouKnowsList}</p>
-            </article>
+            <div class="container">
+            <ul class="container__row">
+                <li class="district-managers container__col-sm-12 container__col-md-6">${this.buildManager(selectedDistrict, _controller)}</li>
+                <li class="deputy-managers container__col-sm-12 container__col-md-6">${this.buildDeputy(selectedDistrict, _controller)}</li>
+            </ul>
             </div>
-            <div class="content-section__LearnMoreButton">
-                <button>
-                <a href="${newsletterLinksList}">Read Newsletter</a>
-                </button>
-                <button>
-                <a href="${learnMoreLinksList}">Learn More</a>
-                </button>
-            </div>
-        `;
-        //APIs
-        // https://detroitmi.gov/rest/district-managers?_format=json
-        // https://detroitmi.gov/rest/council-members?_format=json
-        // https://detroitmi.gov/rest/district-inspectors?_format=json
-        // Note: inspector is changed to enforcers
-
-
-        fetch('https://detroitmi.gov/rest/district-managers?_format=json')
-            .then(resp => resp.json())
-            .then((data) => {
-                if (data && data.length) {
-                    let atLeastOne = false;
-                    // District Manager data
-                    const districtManagerPosition = districtManager[selectedDistrictName];
-                    let DistrictManager = '<div class="district-managers__container">' + '<span class="district-managers__container--title">District Manager</span>';
-                    data.forEach((districtManager) => {
-                        if (districtManager.field_contact_position === (districtManagerPosition + '')) {
-                            DistrictManager +=
-                                `<div class="district-managers__container--row ">
-                         <a href="${memberlinkList}">
-                         <div class="district-managers__container--row__image"> 
-                         <img class="member-image" src = "http://detroitmi.gov/${districtManager.field_portrait}"></div>
-                         <div class="district-managers__container--row__name">
-                          <ul>
-                         <li>${districtManager.title}</li>
-                         <li>${districtManager.field_telephone}</li>
-                         <li>${districtManager.field_email_address}</li>
-                         </ul>
-                         </div>
-                         </a>
-                        </div>
-                        <br>
-                        <div class=""></div>
-                        <span></span>`;
-                            atLeastOne = true;
-                        }
-                        // console.log("deputy-managers"+ districtManager.field_contact_position === (districtManagerPosition + ''))
-                    });
-                    DistrictManager += '</div>';
-                    if (atLeastOne) {
-                        document.getElementsByClassName('district-managers')[0].innerHTML = DistrictManager;
-                    }
-                    // Deputy Manager data
-                    const selectedPosition = deputyManager[selectedDistrictName];
-                    let managersHtml = '<div class="district-managers__container">' + '<span class="district-managers__container--title">Deputy Manager</span>';
-
-                    data.forEach((manager) => {
-                        if (manager.field_contact_position === (selectedPosition + '')) {
-                            managersHtml += `
-                        <div class="district-managers__container--row">
-                           <a href="${memberlinkList}">
-                          <div class="district-managers__container--row__image"> 
-                              <img class="member-image" src = "http://detroitmi.gov/${manager.field_portrait}"></div>
-                          <div class="district-managers__container--row__name "> <ul>
-                        <li>${manager.title}</li>
-                        <li>${manager.field_telephone}</li>
-                        <li>${manager.field_email_address}</li>
-                        </ul>
-                        </div>
-                        </a>`;
-                            atLeastOne = true;
-                        }
-                        //console.log("manager"+ manager.field_contact_position === (selectedPosition + ''));
-                    });
-                    managersHtml += '</div>';
-                    if (atLeastOne) {
-                        document.getElementsByClassName('deputy-managers')[0].innerHTML = managersHtml;
-                    }
-                }
-            }).catch((error) => console.error(error))
-        
-            // Note: inspectors for enforcers
-        fetch('https://detroitmi.gov/rest/district-inspectors?_format=json')
-            .then(resp => resp.json())
-            .then((data) => {
-                if (data && data.length) {
-                    //   console.log("inspector data"+data)
-                    let inspectorsHtml = '<div class="district-inspectors__container"><span class="district-inspectors__container--title">Code Enforcer</span>'
-                    let atLeastOne = false;
-                    data.forEach((inspector) => {
-                        if (inspector.field_responsibilities && inspector.field_responsibilities.toLowerCase().indexOf(selectedDistrictName) >= 0) {
-                            atLeastOne = true;
-                            inspectorsHtml += `
-                <div class="district-managers__container--row">
-                <div class="district-managers__container--row__image"> </div>
-                <div class="district-managers__container--row__name"> 
-                <ul>
-                <li>${inspector.title}</li>
-                <li>${inspector.field_telephone}</li>
+            <div class="container">
+            <ul class="container__row">
+                <li class="district-inspectors container__col-sm-12 container__col-md-6">${this.buildInspector(selectedDistrict, _controller)}</li>
+                <li class="nfos-police district-managers__container container__col-sm-12 container__col-md-6">
+                    <div class="district-managers__container--title">
+                        NPOS
+                    </div>
+                    <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
+                            of police officers</a></p>
+                </li>
                 </ul>
-                </div>`;
-                        }
-                    });
-                    inspectorsHtml += '</div>';
-                    if (atLeastOne) {
-                        document.getElementsByClassName('district-inspectors')[0].innerHTML = inspectorsHtml;
-                    }
-                }
-            }).catch((error) => console.error(error));
-
-        fetch('https://detroitmi.gov/rest/council-members?_format=json')
-            .then(resp => resp.json())
-            .then((data) => {
-                //console.log("council"+ data);
-                if (data && data.length) {
-                    //  console.log(data.length);
-                    const selectedDistrictId = districtsMap[selectedDistrictName];
-                    //  console.log('idcheck'+ districtsMap[selectedDistrictName] );
-                    let councilMembersHtml = '<div class="council-members__container"><span class="council-members__container--title">Council</span>';
-                    // console.log(councilMembersHtml);
-                    let atLeastOne = false;
-                    const uniqueNames = {}
-                    data.forEach((member) => {
-                        if (member.tid === (selectedDistrictId + '') && !uniqueNames[member.field_organization_head_name && member.field_image]) {
-
-                            // console.log(member.selectedDistrictId + member.field_organization_head_name )
-                            uniqueNames[member.field_organization_head_name && member.field_image] = true;
-                            atLeastOne = true;
-                            councilMembersHtml += `<div class="council-members__container--row ">
-                        <a href="${councillinkList}">
-                        <div class="council-members__container--row__image "> 
-                        <img class="member-image" src = "http://detroitmi.gov/${member.field_image}"></div>
-                        <div class="council-members__container--row__name ">
-                        <ul>
-                        <li>${member.field_organization_head_name}</li>
-                        </ul>
-                        </div>
-                        </a>
-                        </div>`;
-                        }
-                    });
-                    councilMembersHtml += '</div>';
-                    if (atLeastOne) {
-                        document.getElementsByClassName('council-members')[0].innerHTML = councilMembersHtml;
-                    }
-                }
-            }).catch((error) => console.error(error))
+                </div>
+                <div class="doYouKnows">
+                <article class="fun-fact-logo">
+                <span class="fa fa-rocket"></span>
+                </article>
+                <article class="text-container">
+                <h3>DID YOU KNOW?</h3>
+                <p>${doYouKnowsList}</p>
+                </article>
+                </div>
+                <div class="content-section__LearnMoreButton">
+                    <button>
+                    <a href="${newsletterLinksList}">Read Newsletter</a>
+                    </button>
+                    <button>
+                    <a href="${learnMoreLinksList}">Learn More</a>
+                    </button>
+                </div>
+        `;
         return html;
     }
 }
