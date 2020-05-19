@@ -107,28 +107,9 @@ img{width: 100%;}
 	}
 }
 
-
-// ====================== mobile end ========================
-@media all and (min-width: 401px) {
-
-	button{
-		border: none;
-		background-color: $color-2;
-		padding: 1em;
-		font-weight: bold;
-		color: $color-1;
-		cursor: pointer;
-		transition: all .2s ease-in-out;
-	}
-	.filter button:hover{
-		padding: 1.15em;
-		box-shadow: -2px 2px 10px 0px rgba($color-2, 0.5);
-		transition: all .2s ease-in-out;
-	}
-}
 // ======================= header end =====================
 // ======================== main ==========================
-// .container {
+// .panel-container {
 // 	width: 75%;
 // 	margin: 0 auto;
 // }
@@ -142,34 +123,21 @@ main.hidden{
 $grid__bp--md: 768;
 $grid__cols: 12;
 
-.container {
-	
-  max-width: $grid__bp--md * 1px;
-  margin: 0 auto;
-  &--fluid {
-    margin: 0;
-    max-width: 100%;
-  }
+.panel-container {
+ 
   &__row {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-  }
-  @for $i from 1 through $grid__cols {
-    &__col-sm-#{$i} {
-      flex-basis: (100 / ($grid__cols / $i) ) * 1%;
-    }
-  }
-  @media screen and (min-width: $grid__bp--md * 1px) {
-    @for $i from 1 through $grid__cols {
-      &__col-md-#{$i} {
-        flex-basis: (100 / ($grid__cols / $i) ) * 1%;
-      }
-    }
-  }
+	width: 100%;
+	margin: 1em;
+	
+	.container__col-sm-12.container__col-md-6{
+		width: 100%
+	  }
+}
 }
 
-.container {
+.panel-container {
   box-sizing: border-box;
   &__row {
   }
@@ -228,13 +196,17 @@ main {
 
 	.data-panel.active{
 		display: block;
-    max-width: 100%;
-		width: 35em;
+		width: 25em;
+		max-width: 100%;
 		padding: 0 1em;
 		margin-right: 1em;
 		transition: all .2s ease-in-out;
 		//================ Sidebar members information===========
 		.content-section{
+			height: 100%;
+			width: 100%;
+			overflow-y: auto;
+
 			&__logo{
 				text-align: center;
 			}
@@ -263,6 +235,7 @@ main {
 				left: 2%;
 				padding-bottom: 0.9em;
 				@extend %memberContainer;
+				margin: 1em;
 				p{
 					padding: 3%;
 				}
@@ -593,7 +566,7 @@ main {
 						background: linear-gradient(to right, 
 					 #d11141 25%, #00aedb 20% 50%, #00b159 50% 75%, #F37736 75%); 
 					}
-					.container{
+					.panel-container{
 						div{
 							label{
 								text-align: center;
@@ -631,10 +604,43 @@ main {
     }
 	}
 }
-// =========================Sidebar=====================================
+// ====================== mobile end ========================
+@media all and (min-width: 401px) {
+	main {
+	
+		.data-panel.active{
+			width: 35em;
+			max-width: 100%;
+		}
+	}
 
-
-
-//============================Sidebar Ends==========================
-
-// ===================== main end =========================
+	button{
+		border: none;
+		background-color: $color-2;
+		padding: 1em;
+		font-weight: bold;
+		color: $color-1;
+		cursor: pointer;
+		transition: all .2s ease-in-out;
+	}
+	.filter button:hover{
+		padding: 1.15em;
+		box-shadow: -2px 2px 10px 0px rgba($color-2, 0.5);
+		transition: all .2s ease-in-out;
+	}
+	.panel-container {
+		.panel-container__row{
+			.container__col-sm-12.container__col-md-6{
+				width: calc(50% - 1em);
+			}
+		
+			.container__col-sm-12.container__col-md-6:first-child{
+				margin-right: 1em;
+			}
+		
+			.container__col-sm-12.container__col-md-6:last-child{
+				margin-left: 1em;
+			}
+		}
+	}
+}

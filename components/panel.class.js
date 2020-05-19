@@ -148,7 +148,7 @@ export default class Panel {
                     console.log('found one');
                     markup = `
                     <div class="district-managers__container">
-                        <span class="district-managers__container--title">District Manager</span>
+                        <span class="district-managers__container--title">District Inspector</span>
                         <div class="district-managers__container--row ">
                          <div class="district-managers__container--row__name">
                             <ul>
@@ -266,29 +266,37 @@ export default class Panel {
         <h2>${selectedDistrictName.toUpperCase()}</h2>
         <p>${districtDescriptionSection}</p>
         <div class="members-information">
-            <div class="container">
-            <ul class="container__row">
+            <div class="panel-container">
+            <ul class="panel-container__row">
             <li class="council-members container__col-sm-12 container__col-md-6">
             ${this.buildCouncil(selectedDistrict, _controller)}
             </li>
             <li></li>
             </ul>
             </div>
-            <div class="container">
-            <ul class="container__row">
+            <div class="panel-container">
+            <ul class="panel-container__row">
                 <li class="district-managers container__col-sm-12 container__col-md-6">${this.buildManager(selectedDistrict, _controller)}</li>
                 <li class="deputy-managers container__col-sm-12 container__col-md-6">${this.buildDeputy(selectedDistrict, _controller)}</li>
             </ul>
             </div>
-            <div class="container">
-            <ul class="container__row">
+            <div class="panel-container">
+            <ul class="panel-container__row">
                 <li class="district-inspectors container__col-sm-12 container__col-md-6">${this.buildInspector(selectedDistrict, _controller)}</li>
-                <li class="nfos-police district-managers__container container__col-sm-12 container__col-md-6">
-                    <div class="district-managers__container--title">
-                        NPOS
+                <li class="district-inspectors container__col-sm-12 container__col-md-6">
+                    <div class="district-managers__container">
+                        <span class="district-managers__container--title">NPOs</span>
+                        <div class="district-managers__container--row ">
+                         <div class="district-managers__container--row__name">
+                            <ul>
+                                <li><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List of police officers</a></li>
+                            </ul>
+                         </div>
+                        </div>
+                        <br>
+                        <div class=""></div>
+                        <span></span>
                     </div>
-                    <p><a href="https://detroitmi.gov/departments/police-department/precincts-and-neighborhood-police-officers">List
-                            of police officers</a></p>
                 </li>
                 </ul>
                 </div>
